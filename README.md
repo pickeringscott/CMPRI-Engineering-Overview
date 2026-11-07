@@ -1,14 +1,43 @@
 # CMPRI Engineering Overview
 
-CMPRI Engineering is a desktop and mobile workspace for hotel engineering, maintenance, and daily operations.
+CMPRI Engineering is a desktop and mobile workspace for hotel engineering, maintenance, and daily operations. It makes reporting a problem straightforward and gives technicians troubleshooting resources directly within the work order.
 
-This repository provides a public overview of the application, its features, and release updates. Application source code, operational data, and deployment configuration are maintained privately.
+This repository provides a public overview, feature information, and release updates. Application source code, operational data, and deployment configuration are maintained privately.
 
-## Features
+## Easy Work Order Submission
 
-- **Work Orders:** Report, assign, track, and review maintenance requests.
+Staff can report a problem in a few steps:
+
+1. Open **Create Work Order**.
+2. Select the room or location and describe the problem in plain language—for example, “Room 316 is not cooling.”
+3. Add photos, video, or notes if helpful.
+4. Submit the request.
+
+The simplified submission flow can infer category and priority from the reported issue. Staff can report a problem without needing to diagnose equipment or choose technical classifications.
+
+Shared-account users enter their name when prompted so the report identifies who submitted it.
+
+## Troubleshooting Guides Within the Work Order
+
+Technicians can open **Suggested Troubleshooting** directly within a work order.
+
+Selecting the associated equipment connects the reported issue with verified documentation for its manufacturer and model, where available. Technicians can access:
+
+- Equipment-specific troubleshooting steps relevant to the reported issue.
+- Matching diagnostic and error-code references.
+- Verified manufacturer guidance and PDF excerpts.
+- Links to original manuals and referenced pages, where available.
+- Copy controls for individual troubleshooting steps.
+
+Technicians can record findings and completed work in the work-order notes. Recorded notes help filter out steps already completed.
+
+The work order clearly indicates when an exact verified documentation match is unavailable.
+
+## Other Features
+
+- **Work Order Management:** Assign, track, update, and review maintenance requests.
 - **Preventive Maintenance:** Organize scheduled work, inspections, and maintenance history.
-- **Locations and Equipment:** Manage property locations, rooms, assets, and supporting documentation.
+- **Locations and Equipment:** Manage rooms, property locations, assets, and documentation.
 - **Inventory and Purchasing:** Track supplies, purchase orders, shipments, and receiving.
 - **Daily Operations:** Support room operations, pool logs, and staff handoffs.
 - **Staff Collaboration:** Share notes, mentions, attachments, and notifications.
@@ -22,8 +51,7 @@ The desktop interface supports movable windows, with responsive layouts for phon
 - Connected modal colors to a shared palette while preserving their approved appearance.
 - Updated Manage Locations with dropdowns and clearer editing controls.
 - Corrected scrollbar cursors and standardized mobile button widths.
-- Added approved Thanksgiving layouts for desktop and mobile.
-- Cached seasonal artwork locally and stabilized animated backgrounds during window and header changes.
+- Added desktop and mobile Thanksgiving layouts with locally cached artwork and stable animated backgrounds.
 
 ## Validation
 
