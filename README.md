@@ -385,7 +385,7 @@ The workspace also shows receipt history, purchasing history, and received-item 
 
 Work-order parts and purchasing activity belongs in that ticket's existing notes. **Staff Notes** remains the separate workspace for general shift communication.
 
-In-app notifications help eligible staff follow assignments, work-order updates, mentions, review activity, and pool closures. Supported devices can receive push notifications when enabled and configured.
+In-app notifications help eligible staff follow assignments, work-order updates, mentions, review activity, room-rank changes, and pool closures. Across the app, the person performing an action is excluded from notifications about that action, including in-app alerts and device push. Other eligible recipients keep their existing notifications. Automatic system alerts continue to follow their normal rules. Supported devices can receive push notifications when enabled and configured.
 
 Profile controls provide notification preferences and delivery schedules where available. Event delivery still follows the account's current access and notification eligibility.
 
