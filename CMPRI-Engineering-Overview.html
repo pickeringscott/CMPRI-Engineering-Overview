@@ -61,7 +61,7 @@ html[data-theme=dark]{--bg:#101724;--paper:#192233;--ink:#eaf0fa;--muted:#b1bed2
 <tr><td>🔵 <strong>Work orders</strong></td><td>Submission, drafts, verification, assignment, claiming, searchable ticket notes, media, troubleshooting checklists, Labor &amp; Parts, completion, closure, reopening, and permitted imports.</td></tr>
 <tr><td>🔵 <strong>Technician Dashboard</strong></td><td>Assigned work, unassigned coverage, due-date context, claiming, and active notifications.</td></tr>
 <tr><td>🟢 <strong>Daily Room Ops</strong></td><td>Guest, departure, and arrival reports; room access planning; room-status summaries; and report imports.</td></tr>
-<tr><td>🟢 <strong>Room Ranker</strong></td><td>A/B/C room rankings based on the highest active work-order priority, grouped by floor.</td></tr>
+<tr><td>🟢 <strong>Room Ranker</strong></td><td>A/B/C room rankings based on active work-order priorities and counts, grouped by floor.</td></tr>
 <tr><td>🟢 <strong>Preventive Maintenance</strong></td><td>Daily, weekly, monthly, and quarterly work; inspection forms; approvals; history; and exports.</td></tr>
 <tr><td>🟢 <strong>Pool Log and Pool</strong></td><td>AM/PM samples, daily checks, retests, chemical usage with inventory deductions in Remarks, closure reasons, holds, and shared operating status.</td></tr>
 <tr><td>🟣 <strong>Manage Locations and Assets</strong></td><td>Rooms, property areas, equipment details, linked tickets, PM context, manuals, and documentation verification.</td></tr>
@@ -133,13 +133,15 @@ html[data-theme=dark]{--bg:#101724;--paper:#192233;--ink:#eaf0fa;--muted:#b1bed2
 <p>The in-house guest list is required first for the day; departure and arrival reports can follow. Selecting <strong>Drive</strong> starts acquisition; refreshing the room view does not start another import.</p>
 <p>The latest accepted report remains available until replaced by a newer verified report. Guest stays expire at their recorded dates and times. Scheduled checkout and projected availability still require physical checkout and room-readiness confirmation through property procedures.</p></section><section class="chapter" aria-labelledby="room-ranker" style="--accent:var(--green)"><h2 id="room-ranker">Room Ranker</h2>
 <p>🟢 <strong>See maintenance priorities across rooms and floors.</strong></p>
-<p><strong>Room Ranker</strong> groups rooms by floor and assigns a rank from the highest active ticket priority:</p>
+<p><strong>Room Ranker</strong> groups rooms by floor and ranks them using the original priorities and counts of active tickets. The highest applicable rank wins:</p>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Reference table"><table><thead><tr><th scope="col">Rank</th><th scope="col">Meaning</th></tr></thead><tbody>
-<tr><td><strong>A</strong></td><td>Low priority or no active tickets.</td></tr>
-<tr><td><strong>B</strong></td><td>Medium priority.</td></tr>
-<tr><td><strong>C</strong></td><td>High or Urgent priority.</td></tr>
+<tr><td><strong>A</strong></td><td>Fewer than 3 Low tickets and no higher-priority tickets.</td></tr>
+<tr><td><strong>B</strong></td><td>3 Low tickets, or 1–2 Medium tickets.</td></tr>
+<tr><td><strong>C</strong></td><td>4 or more Low tickets, 3 or more Medium tickets, or any High or Urgent ticket.</td></tr>
 </tbody></table></div>
-<p>Staff can filter by rank, expand floors, open a room's leading issue, and view additional active issues. <strong>Completed</strong>, <strong>Closed</strong>, and <strong>Will Not Do</strong> tickets are excluded from the ranking.</p></section><section class="chapter" aria-labelledby="preventive-maintenance" style="--accent:var(--green)"><h2 id="preventive-maintenance">Preventive Maintenance</h2>
+<p>At 3 Low tickets, those tickets automatically rise to Medium priority. At 4 or more Low tickets or 3 or more Medium tickets, the affected tickets rise to Urgent and are due today. As the number of active tickets falls, affected priorities step down and return to their original values; due dates changed by automatic escalation are restored when that escalation ends. Urgent work orders are due today when created or changed to Urgent.</p>
+<p>Active property users receive a notification when a room's rank changes, including when it improves; work-order creation alerts continue separately. Phone delivery follows each user's notification settings.</p>
+<p>Staff can filter by rank, expand floors, open a room's leading issue, and view additional active issues. The <strong>?</strong> beside the close button opens a ranking key. <strong>Completed</strong>, <strong>Closed</strong>, and <strong>Will Not Do</strong> tickets are excluded from the ranking.</p></section><section class="chapter" aria-labelledby="preventive-maintenance" style="--accent:var(--green)"><h2 id="preventive-maintenance">Preventive Maintenance</h2>
 <p>🟢 <strong>Organize recurring work and follow-up repairs.</strong></p>
 <p>The PM workspace includes <strong>Weekly Sheet</strong>, <strong>Inspection Forms</strong>, <strong>Quarterly PM</strong>, and <strong>Maintenance History</strong> views.</p>
 <ul>

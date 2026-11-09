@@ -117,7 +117,7 @@ This is a typical path. Permissions and the ticket's state determine available a
 | 🔵 **Work orders** | Submission, drafts, verification, assignment, claiming, searchable ticket notes, media, troubleshooting checklists, Labor & Parts, completion, closure, reopening, and permitted imports. |
 | 🔵 **Technician Dashboard** | Assigned work, unassigned coverage, due-date context, claiming, and active notifications. |
 | 🟢 **Daily Room Ops** | Guest, departure, and arrival reports; room access planning; room-status summaries; and report imports. |
-| 🟢 **Room Ranker** | A/B/C room rankings based on the highest active work-order priority, grouped by floor. |
+| 🟢 **Room Ranker** | A/B/C room rankings based on active work-order priorities and counts, grouped by floor. |
 | 🟢 **Preventive Maintenance** | Daily, weekly, monthly, and quarterly work; inspection forms; approvals; history; and exports. |
 | 🟢 **Pool Log and Pool** | AM/PM samples, daily checks, retests, chemical usage with inventory deductions in Remarks, closure reasons, holds, and shared operating status. |
 | 🟣 **Manage Locations and Assets** | Rooms, property areas, equipment details, linked tickets, PM context, manuals, and documentation verification. |
@@ -241,15 +241,19 @@ The latest accepted report remains available until replaced by a newer verified 
 
 🟢 **See maintenance priorities across rooms and floors.**
 
-**Room Ranker** groups rooms by floor and assigns a rank from the highest active ticket priority:
+**Room Ranker** groups rooms by floor and ranks them using the original priorities and counts of active tickets. The highest applicable rank wins:
 
 | Rank | Meaning |
 | --- | --- |
-| **A** | Low priority or no active tickets. |
-| **B** | Medium priority. |
-| **C** | High or Urgent priority. |
+| **A** | Fewer than 3 Low tickets and no higher-priority tickets. |
+| **B** | 3 Low tickets, or 1–2 Medium tickets. |
+| **C** | 4 or more Low tickets, 3 or more Medium tickets, or any High or Urgent ticket. |
 
-Staff can filter by rank, expand floors, open a room's leading issue, and view additional active issues. **Completed**, **Closed**, and **Will Not Do** tickets are excluded from the ranking.
+At 3 Low tickets, those tickets automatically rise to Medium priority. At 4 or more Low tickets or 3 or more Medium tickets, the affected tickets rise to Urgent and are due today. As the number of active tickets falls, affected priorities step down and return to their original values; due dates changed by automatic escalation are restored when that escalation ends. Urgent work orders are due today when created or changed to Urgent.
+
+Active property users receive a notification when a room's rank changes, including when it improves; work-order creation alerts continue separately. Phone delivery follows each user's notification settings.
+
+Staff can filter by rank, expand floors, open a room's leading issue, and view additional active issues. The **?** beside the close button opens a ranking key. **Completed**, **Closed**, and **Will Not Do** tickets are excluded from the ranking.
 
 ## Preventive Maintenance
 
