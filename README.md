@@ -478,6 +478,8 @@ Available actions depend on connector and deployment configuration. Native PM co
 
 The desktop workspace organizes tools into **Work Orders**, **Operations**, **Assets and Inventory**, **Admin**, and **Account** menus according to role. Movable windows let staff keep related work visible together.
 
+Menu buttons and group headings show a pointing hand for clicking and a grabbing hand while rearranging. A stationary mouse press activates on release; dragging keeps the selected item under the pointer and does not block a subsequent click. Touch long-press and keyboard reordering remain available.
+
 Responsive layouts adapt the workspace for phones and tablets. Role-specific dashboards focus on the work each account can perform. Work-order fields stay clear of floating personal notification bells, and the existing dashboard notification access remains available. Supported deployments also include seasonal visual themes.
 
 After Google sign-in returns to CMPRI, the seasonal background and loading message remain visible while Engineering or Front Desk dashboard access is verified. The authorized dashboard appears after those checks complete.
