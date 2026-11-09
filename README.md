@@ -305,7 +305,7 @@ The saved log and its audit history retain the chemical, entered quantity/unit, 
 
 ### Manage Locations
 
-Authorized staff can add and edit rooms and property areas, review linked PM plans and due dates, see completion history, and open tickets tied to the selected location. Each location row stacks a red work-order count above its PM status at the far right. PM indicators use the PM workspace's native color, and the indicators provide context without separate actions.
+Authorized staff can add and edit rooms and property areas, review linked PM plans and due dates, see completion history, and open tickets tied to the selected location. Each location row stacks a red work-order count above its PM status at the far right. PM indicators use the PM workspace's native color, and the indicators provide context without separate actions. Open location views refresh when location, work-order, or PM information changes, while keeping the selected location expanded.
 
 ### Assets and equipment documentation
 
