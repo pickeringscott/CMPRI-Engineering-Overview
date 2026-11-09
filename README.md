@@ -60,6 +60,8 @@ Requests from submission-only roles enter **Pending Verification**. Authorized E
 
 **Suggested Troubleshooting** uses the selected equipment's current approved, model-matched PDF to connect a reported symptom or diagnostic code with documented instructions. The guide provides source material for comparison and explains when suitable guidance is unavailable.
 
+When the approved source provides a relevant diagram, staff can open it and use zoom and pan to inspect the image.
+
 Technicians can record checklist progress, findings, and repairs; the Chief Engineer can verify checklist work. Checklist activity is retained and summarized in a combined note for each editing visit. Checking steps does not complete or close the ticket.
 
 The guide extracts instructions directly from the approved equipment PDF without AI-provider calls or web searches. It is separate from the optional ChatGPT connection and the local OCR reader.
@@ -146,7 +148,11 @@ The work list supports search, filters, sorting, and status groups. The **Techni
 
 ### Investigate and repair
 
-A ticket brings together the reported issue, room context, selected equipment, attachments, notes, troubleshooting progress, and repair history. Staff record what they checked, found, changed, and still need to address. Compact equipment and assignment fields keep the report easy to scan. Current guest details remain beneath the room, while incoming reservation badges stay together at the far right in their existing order.
+A ticket brings together the reported issue, room context, selected equipment, attachments, notes, troubleshooting progress, and repair history. Staff record what they checked, found, changed, and still need to address.
+
+The work-order title stays visible while scrolling and shows the current guest's group badge, Bonvoy status, and name when available. After checkout, it shows the incoming reservation's guest information when available. Today's checkout displays the departure time from Daily Room Ops, defaulting to 11:00 a.m. when no time is specified; future checkout dates appear without a time.
+
+**Reported Issue** and **Preventative Maintenance** start collapsed and can be expanded for details. The maintenance control opens the linked form or the room’s quarterly form when available; for an unlinked non-room location, staff can select the appropriate form in the PM workspace.
 
 Use **In Progress** where permitted. Parts and outside-service follow-up can remain connected to the repair through notes and the relevant supply workflows.
 
@@ -387,6 +393,8 @@ Work-order parts and purchasing activity belongs in that ticket's existing notes
 
 In-app notifications help eligible staff follow assignments, work-order updates, mentions, review activity, room-rank changes, and pool closures. Across the app, the person performing an action is excluded from notifications about that action, including in-app alerts and device push. Other eligible recipients keep their existing notifications. Automatic system alerts continue to follow their normal rules. Supported devices can receive push notifications when enabled and configured.
 
+Work-order status changes notify active Chief Engineers and technicians, subject to account eligibility and notification preferences.
+
 Profile controls provide notification preferences and delivery schedules where available. Event delivery still follows the account's current access and notification eligibility.
 
 ## GSS Reports
@@ -394,6 +402,8 @@ Profile controls provide notification preferences and delivery schedules where a
 🟡 **Review guest-satisfaction reporting alongside operations.**
 
 **GSS Reports** displays dated guest-satisfaction scorecards and rankings, including sample sizes, reported metrics, source trend indicators, and previous reports.
+
+When a newer matching weekly source report is available, its original images appear above the verified tables. The tables retain the date of the report from which they were verified.
 
 Scores retain their original reporting periods, such as month to date or wave to date. The displayed reports are dated source snapshots; their dates and periods matter when comparing results.
 
