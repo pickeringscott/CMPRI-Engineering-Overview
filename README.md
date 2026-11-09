@@ -146,13 +146,13 @@ The work list supports search, filters, sorting, and status groups. The **Techni
 
 ### Investigate and repair
 
-A ticket brings together the reported issue, room context, selected equipment, attachments, notes, troubleshooting progress, and repair history. Staff record what they checked, found, changed, and still need to address.
+A ticket brings together the reported issue, room context, selected equipment, attachments, notes, troubleshooting progress, and repair history. Staff record what they checked, found, changed, and still need to address. Compact equipment and assignment fields keep the report easy to scan. Current guest details remain beneath the room, while incoming reservation badges stay together at the far right in their existing order.
 
 Use **In Progress** where permitted. Parts and outside-service follow-up can remain connected to the repair through notes and the relevant supply workflows.
 
 ### Complete, review, and close
 
-Record the repair, final action or root cause, and permitted parts, cost, or labor details. Mark the task **Completed** when the work is finished.
+Record the repair, final action or root cause in the ticket notes, along with permitted parts, cost, or labor details. The compact note input sits at the bottom of the ticket with Upload, Camera, and Submit Note beside it. Closure information stays in the shared history rather than a separate Closure Details panel. Mark the task **Completed** when the work is finished.
 
 **Completed** and **Closed** are separate stages. An authorized reviewer performs final closure. Authorized staff can reopen work or record **Will Not Do** with an explanation when a repair will not proceed.
 
@@ -166,7 +166,7 @@ Where authorized, the import workspace accepts SafetyCulture or spreadsheet issu
 
 🟠 **Connect each confirmed part to inventory and purchasing, with all activity in the ticket notes.**
 
-Open **Labor & Parts** using the same expand/collapse behavior and header formatting as **Suggested Troubleshooting**. The compact section keeps the selected part, its status, supply, quantities, and labor details together on desktop and mobile.
+**Labor & Parts** and **Suggested Troubleshooting** both start collapsed. Their matching gold titles keep a triangle visible in both states: right-pointing when collapsed and down-pointing when expanded. Open **Labor & Parts** to review the selected part, its larger status control, supply, quantities, and labor details together on desktop and mobile.
 
 ### Select the part and supply
 
@@ -301,7 +301,7 @@ The saved log and its audit history retain the chemical, entered quantity/unit, 
 
 ### Manage Locations
 
-Authorized staff can add and edit rooms and property areas, review linked PM plans and due dates, see completion history, and open tickets tied to the selected location.
+Authorized staff can add and edit rooms and property areas, review linked PM plans and due dates, see completion history, and open tickets tied to the selected location. Each location row stacks a red work-order count above its PM status at the far right. PM indicators use the PM workspace's native color, and the indicators provide context without separate actions.
 
 ### Assets and equipment documentation
 
@@ -464,7 +464,7 @@ Available actions depend on connector and deployment configuration. Native PM co
 
 The desktop workspace organizes tools into **Work Orders**, **Operations**, **Assets and Inventory**, **Admin**, and **Account** menus according to role. Movable windows let staff keep related work visible together.
 
-Responsive layouts adapt the workspace for phones and tablets. Role-specific dashboards focus on the work each account can perform. Supported deployments also include seasonal visual themes.
+Responsive layouts adapt the workspace for phones and tablets. Role-specific dashboards focus on the work each account can perform. Work-order fields stay clear of floating personal notification bells, and the existing dashboard notification access remains available. Supported deployments also include seasonal visual themes.
 
 Permission-scoped reference, inventory, and parts snapshots are cached locally to speed repeat views. Inventory search and list pagination use the local snapshot; stock-note history loads only when requested. Existing work orders refresh from the server when opened; opening **Labor & Parts** also refreshes inventory and PO context. Cached counts can display first, but stock-changing controls wait for current server data.
 
