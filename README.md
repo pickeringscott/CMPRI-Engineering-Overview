@@ -158,7 +158,7 @@ Use **In Progress** where permitted. Parts and outside-service follow-up can rem
 
 ### Complete, review, and close
 
-Record the repair, final action or root cause in the ticket notes, along with permitted parts, cost, or labor details. The compact note input sits at the bottom of the ticket with Upload, Camera, and Submit Note beside it. Closure information stays in the shared history rather than a separate Closure Details panel. Mark the task **Completed** when the work is finished.
+Record the repair, final action or root cause in the ticket notes, along with permitted parts, cost, or labor details. The expandable **Notes & Ticket History** section keeps the note input, Upload, Camera, and Submit Note together with the ticket history. Closure information stays in the shared history rather than a separate Closure Details panel. Mark the task **Completed** when the work is finished.
 
 **Completed** and **Closed** are separate stages. An authorized reviewer performs final closure. Authorized staff can reopen work or record **Will Not Do** with an explanation when a repair will not proceed.
 
@@ -172,7 +172,7 @@ Where authorized, the import workspace accepts SafetyCulture or spreadsheet issu
 
 🟠 **Connect each confirmed part to inventory and purchasing, with all activity in the ticket notes.**
 
-**Labor & Parts** and **Suggested Troubleshooting** both start collapsed. Their matching gold titles keep a triangle visible in both states: right-pointing when collapsed and down-pointing when expanded. Open **Labor & Parts** to review the selected part, its larger status control, supply, quantities, and labor details together on desktop and mobile.
+**Labor & Parts** and **Suggested Troubleshooting** both start collapsed. Their matching gold titles keep a triangle visible in both states: right-pointing when collapsed and down-pointing when expanded. The compact selected-part status control appears in the **Labor & Parts** heading. Open the section to review the supply, quantities, and labor details together on desktop and mobile.
 
 ### Select the part and supply
 
@@ -480,6 +480,10 @@ The desktop workspace organizes tools into **Work Orders**, **Operations**, **As
 
 Responsive layouts adapt the workspace for phones and tablets. Role-specific dashboards focus on the work each account can perform. Work-order fields stay clear of floating personal notification bells, and the existing dashboard notification access remains available. Supported deployments also include seasonal visual themes.
 
+After Google sign-in returns to CMPRI, the seasonal background and loading message remain visible while Engineering or Front Desk dashboard access is verified. The authorized dashboard appears after those checks complete.
+
+The standard work-order list loads the requested page and waits briefly for typing to pause before searching. Troubleshooting illustrations load as they approach the visible area. The seasonal leaf animation stops while hidden, paused, or reduced motion is enabled; its settled leaves remain in place within a 480-leaf limit.
+
 Permission-scoped reference, inventory, and parts snapshots are cached locally to speed repeat views. Inventory search and list pagination use the local snapshot; stock-note history loads only when requested. Existing work orders refresh from the server when opened; opening **Labor & Parts** also refreshes inventory and PO context. Cached counts can display first, but stock-changing controls wait for current server data.
 
 Unsaved part edits and interrupted-save references are retained locally for recovery, scoped to the account, property, and ticket. Refreshing does not silently discard unsaved edits. Authorization and saving require an internet connection. Some cached room information can include guest details; sign-out cleanup is best effort, so shared devices should follow property policy.
@@ -506,6 +510,8 @@ Viewing, editing, assignment, approval, and closure have separate permissions. P
 | **Accounts and data** | Supabase provides authentication, PostgreSQL records, and file storage. |
 | **Hosting** | The application is deployed on Vercel. |
 | **Connected services** | Configured integrations support Google Drive reports, email and spreadsheet workflows, notifications, and ChatGPT. |
+
+To reduce repeated work, notification recovery checks recipients with pending deliveries, regular Gmail scanning skips messages already processed, and a short-lived server cache reuses verified PDF text and image derivatives while each request still checks access. The retired room-reconciliation schedule has been removed.
 
 A browser request reaches the application server, which checks the account, property membership, permissions, and record rules before accessing data. The interface displays the result and refreshes affected views after successful changes.
 
