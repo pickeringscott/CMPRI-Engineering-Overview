@@ -282,12 +282,14 @@ A passing sample does not clear an independent hold. Saving a test result and au
 
 At the very bottom of **Pool Log**, beneath **Remarks / actions taken**, open the compact **Chemical usage** expanding section. It matches the existing inventory-entry layout and keeps the pool modal's native colors.
 
-1. Choose the chemical's inventory **Supply**. The selector shows the current available quantity.
+The chemical selector includes **only active items classified as Chemical and assigned to the managed Pool Pump Room location**. Items in Pool Area, Pool HVAC Room, or any other location are excluded, as are nonchemical products stored in Pool Pump Room. The same restriction is checked again when the log saves. Existing items with no confirmed type or storage assignment remain excluded until staff verify and assign them in Inventory.
+
+1. Choose the chemical from **Pool Pump Room**. The selector shows the current available quantity for eligible chemicals only.
 2. Enter the **Quantity used** and **Unit** actually used.
 3. Select **Add chemical use**. CMPRI automatically adds the chemical and entered quantity/unit to **Remarks** and stages the usage with this pool log. Multiple chemicals can be added. **Remove** discards an entry that has not been saved.
 4. Select **Save Pool Log** or **Add to today's pool log**. The readings, Remarks, chemical usage, inventory reduction, and inventory movement save together.
 
-Stock changes when the pool log is saved. A failed save leaves stock unchanged, and retrying an unconfirmed save uses the same usage identities so inventory is deducted only once. Current available counts refresh after a confirmed save.
+Stock changes when the pool log is saved. A rejected database save leaves stock unchanged, and retrying an unconfirmed save uses the same usage identities so inventory is deducted only once. Current available counts refresh after a confirmed save.
 
 Chemical usage follows the existing inventory rules: reserved stock remains protected, available quantities cannot be overdrawn, supported units use the existing conversions, and **Each** items require whole counts. Staff record what they actually used; CMPRI does not choose a chemical or dose from the readings.
 
@@ -315,18 +317,49 @@ Authorized staff can record moves or swaps as one batch, including every affecte
 
 ## Inventory, Vendors, and Proposals
 
-🟠 **Know what is available and what needs ordering.**
+🟠 **Manage supplies, follow stock changes, and connect purchasing to actual usage.**
 
-The inventory workspace shares its stock records with work-order **Labor & Parts** and the pool log’s **Chemical usage** section. Confirmed usage reduces those same counts, and linked requirements use the existing **Order Ideas** list.
+Inventory shares its stock records with work-order **Labor & Parts**, PO receiving, and the pool log’s **Chemical usage** section. The compact Inventory modal retains its native colors and supports desktop and mobile use.
 
-The inventory workspace includes:
+### Add inventory with the right identity and location
 
-- **Parts Catalog:** Item descriptions, vendor/SKU references, on-hand and reserved quantities, available stock, reorder levels, storage locations, and costs.
-- **Equipment compatibility:** Filter for parts explicitly marked compatible with selected equipment.
-- **Reorder suggestions:** Identify items at or below their recorded reorder levels.
-- **Order Ideas:** Keep potential purchases in a lightweight list before they become orders.
-- **Vendors and Contacts:** Maintain supplier details, services, contact people, and preferred or approved indicators.
-- **Vendor Proposals:** Record quoted scope and cost, equipment or location context, proposal status, and repair-or-replace recommendations.
+Use **Add Inventory** to enter the item name, **Type** (Chemical, Part, or Supply), **Stock unit**, and **Opening quantity**. **Storage Location** is populated from active managed locations; staff select the actual location instead of entering free text.
+
+Vendor, SKU, manufacturer, description, compatible equipment, reorder settings, and unit cost can be recorded alongside the item. Opening stock above zero requires a count note. The opening balance and its stock note save together.
+
+Matching inventory opens the existing record rather than creating another copy. Interrupted saves retain the same operation identity, including after reopening Inventory, so retrying cannot duplicate the item, stock change, or Order Idea.
+
+### Expand an item and follow its stock notes
+
+Each expandable inventory item shows **on hand**, **reserved**, and **available** quantities separately, along with storage, unit, vendor/SKU, and reorder details.
+
+**Stock notes** form one searchable, work-order-style chronological history. Entries retain the operator, timestamp in the property’s Central time zone, reason or activity, stock unit, and before-and-after counts where those balances were recorded. Receipts, work-order usage, pool chemical usage, physical-count corrections, returns, and opening balances appear in this same stream, with links to their related records.
+
+Earlier movement notes retain their recorded timestamps. Historical opening balances and before/after figures that were never recorded are not inferred.
+
+### Correct counts and maintain item details
+
+**Adjust stock** records a verified physical count and requires a reason. **Return stock** records the quantity physically returned and its reason. Both commit the stock change, movement, and timestamped note together while preserving reserved quantities.
+
+**Edit details** supports verified corrections to classification, managed storage, description, vendor/SKU, manufacturer, and reorder settings. Stock units are protected after stock or movements have been recorded; earlier zero-stock items without movement history can be corrected before use.
+
+Each items require whole counts. Supported mass and volume units remain separate; a weight ounce is not treated as a fluid ounce. Available inventory cannot be overdrawn. If another operation changes an item, a stale save is rejected and the entered information stays visible for review.
+
+### Keep Order Ideas connected to purchasing
+
+Low-stock items can create an Order Idea. When an open idea already exists for the same item and context, staff use that record. Ideas can be marked **Ready To Order**, linked to an existing PO line mapped to the same item, or dismissed. Ticket-linked parts continue through **Labor & Parts**.
+
+**Ordered** and **Received** follow the linked PO and its physical receiving records. Partial receipts remain outstanding; stock is added through the existing PO receiving workflow. An Order Idea or a status label alone does not add stock.
+
+### Load only what is needed
+
+The catalog uses a bundled, permission-scoped snapshot and local search and pagination. Expanding an item loads its stock notes on demand; older notes load in pages. Cached data speeds reopening, and existing change notifications refresh affected views without periodic inventory polling. The pool chemical list loads when its expanding section is opened.
+
+Save errors appear inside the active dialog, preserving entered information. Unconfirmed saves can be retried safely. **The inventory and pool chemical workflows make no AI calls.**
+
+### Vendors, contacts, and proposals
+
+Vendors and contacts retain company, phone, email, website, preferred/approved status, and equipment relationships. Repair/replace proposals preserve their vendor/contact context, scope, quoted cost, recommendation, and review status.
 
 ## Purchase Orders, Shipments, and Receiving
 
@@ -433,7 +466,7 @@ The desktop workspace organizes tools into **Work Orders**, **Operations**, **As
 
 Responsive layouts adapt the workspace for phones and tablets. Role-specific dashboards focus on the work each account can perform. Supported deployments also include seasonal visual themes.
 
-Permission-scoped reference and parts snapshots are cached locally to speed repeat views. Existing work orders refresh from the server when opened; opening **Labor & Parts** also refreshes inventory and PO context. Cached counts can display first, but stock-changing controls wait for current server data.
+Permission-scoped reference, inventory, and parts snapshots are cached locally to speed repeat views. Inventory search and list pagination use the local snapshot; stock-note history loads only when requested. Existing work orders refresh from the server when opened; opening **Labor & Parts** also refreshes inventory and PO context. Cached counts can display first, but stock-changing controls wait for current server data.
 
 Unsaved part edits and interrupted-save references are retained locally for recovery, scoped to the account, property, and ticket. Refreshing does not silently discard unsaved edits. Authorization and saving require an internet connection. Some cached room information can include guest details; sign-out cleanup is best effort, so shared devices should follow property policy.
 
