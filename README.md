@@ -150,6 +150,10 @@ The work list supports search, filters, sorting, and status groups. The **Techni
 
 A ticket brings together the reported issue, room context, selected equipment, attachments, notes, troubleshooting progress, and repair history. Staff record what they checked, found, changed, and still need to address.
 
+The Reported Issue section groups work details and assignment controls. Permitted dropdown changes save as they are selected; related equipment changes may update category and priority together. A confirmed value different from the value shown when the ticket opened appears green. Selecting the opening value again saves it and restores the usual color. If a save cannot be confirmed, the selection remains available and CMPRI displays an error.
+
+Selecting **Closed** changes the status without closing the work-order view. **Save Changes** remains available for other unsaved work-order edits. Section icons help staff distinguish the issue, notes, troubleshooting, labor and parts, and preventive maintenance.
+
 The work-order title stays visible while scrolling and shows the current guest's group badge, Bonvoy status, and name when available. After checkout, it shows the incoming reservation's guest information when available. Today's checkout displays the departure time from Daily Room Ops, defaulting to 11:00 a.m. when no time is specified; future checkout dates appear without a time.
 
 **Reported Issue** and **Preventative Maintenance** start collapsed and can be expanded for details. The maintenance control opens the linked form or the room’s quarterly form when available; for an unlinked non-room location, staff can select the appropriate form in the PM workspace.
@@ -477,6 +481,8 @@ Available actions depend on connector and deployment configuration. Native PM co
 🔵 **Use the same operational tools across screen sizes.**
 
 The desktop workspace organizes tools into **Work Orders**, **Operations**, **Assets and Inventory**, **Admin**, and **Account** menus according to role. Movable windows let staff keep related work visible together.
+
+Staff can open and switch up to five work orders in one workspace while keeping other tools and their drafts open. The work-order list, Manage Locations, and Staff Notes do not count toward that limit. Opening an already open ticket brings it forward; at the limit, close one work order before opening another. Links in Staff Notes can open the referenced work order where the account has access.
 
 Menu buttons and group headings show a pointing hand for clicking and a grabbing hand while rearranging. A stationary mouse press activates on release; dragging keeps the selected item under the pointer and does not block a subsequent click. Touch long-press and keyboard reordering remain available.
 
