@@ -1,540 +1,489 @@
-# CMPRI Engineering Overview
-
-A desktop and mobile workspace for hotel maintenance, engineering, and daily operations—from the first problem report to the repair, final review, and next shift's handoff.
-
-CMPRI Engineering connects work orders, troubleshooting, room operations, preventive maintenance, equipment, inventory, purchasing, pool checks, staff communication, and management tools. Each account sees the tools and actions its role permits.
-
-[Open CMPRI Engineering](https://www.cmpri-engineering.com/) · [Privacy policy](https://www.cmpri-engineering.com/privacy)
-
-Application access requires an authorized staff account. This repository is the public product overview; application source code, operational records, and deployment configuration are private.
-
-**Reading guide:** 🔵 Work orders · 🟣 Troubleshooting and equipment · 🟢 Operations and maintenance · 🟠 Supplies and purchasing · 🟡 People and account tools
-
-## On This Page
-
-- [Easy Work Order Submission](#easy-work-order-submission)
-- [Troubleshooting Guides Within the Work Order](#troubleshooting-guides-within-the-work-order)
-- [Work Order Flow](#work-order-flow)
-- [Feature Directory](#feature-directory)
-- [Work Orders and Technician Dashboard](#work-orders-and-technician-dashboard)
-- [Labor and Parts](#labor-and-parts)
-- [Daily Room Operations](#daily-room-operations)
-- [Room Ranker](#room-ranker)
-- [Preventive Maintenance](#preventive-maintenance)
-- [Pool Log and Pool Status](#pool-log-and-pool-status)
-- [Locations, Assets, and Enseo Assignments](#locations-assets-and-enseo-assignments)
-- [Inventory, Vendors, and Proposals](#inventory-vendors-and-proposals)
-- [Purchase Orders, Shipments, and Receiving](#purchase-orders-shipments-and-receiving)
-- [Staff Notes and Notifications](#staff-notes-and-notifications)
-- [GSS Reports](#gss-reports)
-- [Hours Tracker](#hours-tracker)
-- [Candidate Questionnaires](#candidate-questionnaires)
-- [Profiles, User Management, and Feedback](#profiles-user-management-and-feedback)
-- [Photos, Documents, and Text Recognition](#photos-documents-and-text-recognition)
-- [Optional ChatGPT Connection](#optional-chatgpt-connection)
-- [Desktop and Mobile Workspace](#desktop-and-mobile-workspace)
-- [Roles and Permissions](#roles-and-permissions)
-- [How the App Is Built](#how-the-app-is-built)
-- [Application Access](#application-access)
-- [About This Repository](#about-this-repository)
-
----
-
-## Easy Work Order Submission
-
-🔵 **Report a problem in plain language.**
-
-1. Open **Create Work Order** or **+ Work Order**.
-2. Choose a room or property location.
-3. Describe the problem—for example, “Room 316 is not cooling.”
-4. Add photos, video, or notes when useful.
-5. Submit the request, or save a draft to finish later.
-
-The form can suggest category, priority, and equipment from the issue and location. Similar active work can trigger a duplicate warning. Staff do not need to diagnose the equipment before reporting a problem.
-
-Requests from submission-only roles enter **Pending Verification**. Authorized Engineering submissions can begin as **Open**. Drafts remain unfinished reports until submitted.
-
-## Troubleshooting Guides Within the Work Order
-
-🟣 **Bring equipment documentation into the repair.**
-
-**Suggested Troubleshooting** uses the selected equipment's current approved, model-matched PDF to connect a reported symptom or diagnostic code with documented instructions. The guide provides source material for comparison and explains when suitable guidance is unavailable.
-
-When the approved source provides a relevant diagram, staff can open it and use zoom and pan to inspect the image.
-
-Technicians can record checklist progress, findings, and repairs; the Chief Engineer can verify checklist work. Checklist activity is retained and summarized in a combined note for each editing visit. Checking steps does not complete or close the ticket.
-
-The guide extracts instructions directly from the approved equipment PDF without AI-provider calls or web searches. It is separate from the optional ChatGPT connection and the local OCR reader.
-
-## Work Order Flow
-
-🔵 **Follow one ticket from the first report to the next shift.**
-
+*Updated November 10, 2026.*
+CMPRI Engineering connects hotel maintenance reporting, technician work, preventive maintenance, room operations, pool monitoring, purchasing, inventory, and staff communication in a desktop and mobile workspace.
+An optional ChatGPT connection provides conversational access to supported records and actions.
+This guide focuses on the maintenance cycle: creating and managing work orders, using equipment-specific troubleshooting, and performing preventive maintenance (PM). It also describes the supporting tools used to coordinate that work.
+Application access requires an authorized staff account. This public repository contains documentation and release information. Application source code, operational records, and deployment configuration remain private.
+[Open CMPRI Engineering](https://www.cmpri-engineering.com/)
+## Recent Updates
+The current release improves work-order editing and multitasking, alongside room reports, guest and room context, locations, and account access.
+| Area | What changed |
+| --- | --- |
+| **Work-order editing** | Permitted dropdown selections save automatically. Grouped controls and section icons improve scanning on desktop and mobile. |
+| **Multiple work orders** | Open and switch up to five work orders in one workspace while keeping other tools and their drafts open. |
+| **Daily Room Ops** | Separate **Drive** and **File** actions. Drive fetches newer approved CSV attachments on demand, validates them, and applies a successful import directly. Manual files keep their review and confirmation workflow. |
+| **Guest group indicators** | Group badges appear beside guest names in room operations and work-order views. The CN Railway badge recognizes the imported **CN RAILWAYS** Group Name. |
+| **Manage Locations** | Grouped, expandable location records connect location details, related work orders, PM schedules, and recent completion history. |
+| **Manage Users** | Active/Deactivated status is followed by the last sign-in or verification state. A small green dot indicates a user currently connected to the app. |
+| **Work-order collaboration** | New note and status events notify eligible Engineering leadership, the assigned technician, and the original submitter, with duplicate recipients combined. |
+| **Workspace and exports** | Responsive work-order filters, guest indicators, membership-tier help, coordinated modal styling, and PM Excel exports using the original workbook layout. |
+See the workflow sections below for requirements, permissions, and limitations.
+## Contents
+- [Recent updates](#recent-updates)
+- [The operating cycle](#the-operating-cycle)
+- [1. Sign in and open the workspace](#1-sign-in-and-open-the-workspace)
+- [2. Review the current operating picture](#2-review-the-current-operating-picture)
+- [3. Submit a maintenance request](#3-submit-a-maintenance-request)
+- [4. Review, prioritize, and assign work](#4-review-prioritize-and-assign-work)
+- [5. Troubleshoot within the work order](#5-troubleshoot-within-the-work-order)
+- [6. Complete, close, or reopen work](#6-complete-close-or-reopen-work)
+- [7. Run preventive maintenance](#7-run-preventive-maintenance)
+- [8. Resolve parts and purchasing needs](#8-resolve-parts-and-purchasing-needs)
+- [9. Manage pool operations](#9-manage-pool-operations)
+- [10. Maintain locations and equipment](#10-maintain-locations-and-equipment)
+- [11. Communicate and hand off work](#11-communicate-and-hand-off-work)
+- [12. Supporting reports and account tools](#12-supporting-reports-and-account-tools)
+- [ChatGPT integration](#chatgpt-integration)
+- [Updates and device caching](#updates-and-device-caching)
+- [Example maintenance cycle](#example-maintenance-cycle)
+- [Release and validation](#release-and-validation)
+- [About this repository](#about-this-repository)
+## The Operating Cycle
+Work orders bring the request, diagnosis, repair, and history together. A PM inspection can also identify a deficiency that needs a linked work order.
 ```mermaid
 flowchart TD
-    R["Staff reports an issue in everyday language"] --> V{"Verification required?"}
-    V -->|Yes| PV["Pending Verification: Engineering reviews"]
-    V -->|No| O["Open work order"]
-    PV --> O
-    O --> A["Assign or claim the work"]
-    A --> D["Investigate and repair"]
-    D --> P{"Part needed?"}
-    P -->|No| F["Record findings and repair"]
-    P -->|Yes| S["Review suggestions and confirm the part"]
-    S --> H{"Sufficient in-house stock?"}
-    H -->|Yes| U["Record actual use: deduct stock once"]
-    H -->|No| I["Need to Order: linked Order Idea"]
-    I --> PO["Existing PO workflow: On Order"]
-    PO --> RC["Physical receiving: Received when enough arrives"]
-    RC --> U
-    U --> F
-    F --> C["Mark Completed"]
-    C --> CL["Authorized review and closure: Closed"]
-    CL --> HAND["Repair history and shift handoff"]
-    I -.-> N["Parts activity posts to searchable ticket notes"]
-    PO -.-> N
-    RC -.-> N
-    U -.-> N
-
-    classDef report fill:#DBEAFE,stroke:#1D4ED8,color:#172554
-    classDef review fill:#FEF3C7,stroke:#B45309,color:#451A03
-    classDef repair fill:#EDE9FE,stroke:#6D28D9,color:#2E1065
-    classDef supplies fill:#FFEDD5,stroke:#C2410C,color:#431407
-    classDef done fill:#DCFCE7,stroke:#15803D,color:#052E16
-    class R,O,A report
-    class V,PV,P,H review
-    class D,S repair
-    class I,PO,RC,U supplies
-    class F,C,CL,HAND,N done
+    A[Staff report or authorized ChatGPT request] --> B[Submit maintenance request]
+    B --> C{Verification required?}
+    C -->|Yes| D[Engineering reviews request]
+    C -->|No| E[Open work order]
+    D -->|Approved| E
+    D -->|Other disposition| X[Record disposition]
+    E --> F[Assign or claim work]
+    F --> G[Inspect and troubleshoot]
+    G --> H{Parts or service needed?}
+    H -->|Yes| I[Coordinate parts or service]
+    I --> G
+    H -->|No| J[Repair and document findings]
+    J --> K[Mark completed]
+    K --> L[Authorized review and closure]
+    L --> M[History and shift handoff]
+    L -->|Further work needed; authorized reopening| E
+    P[Scheduled PM] --> Q[Perform and record checks]
+    Q --> R{Repair deficiency found?}
+    R -->|Yes| S[Create linked work order]
+    S --> C
+    R -->|No| T[Complete PM and seek review where required]
+    S --> T
 ```
-
-**Flow colors:** 🔵 Reporting and assignment · 🟡 Decisions and review · 🟣 Investigation · 🟠 Parts and purchasing · 🟢 Completion and history
-
-This is a typical path. Permissions and the ticket's state determine available actions. Authorized staff can also reopen work or record **Will Not Do** with an explanation. PO receiving and inventory usage remain separate actions.
-
-## Feature Directory
-
-| Area | Tools and purpose |
+This is a typical path, not a promise that every ticket follows every step. Drafts are not submitted work; requests can receive another disposition, and available actions depend on permissions and the record's state. PM completion and review are tracked separately from the linked repair.
+## 1. Sign In and Open the Workspace
+After sign-in, CMPRI presents the workspace appropriate to the staff member’s role and permissions.
+| Staff function | Typical use |
 | --- | --- |
-| 🔵 **Work orders** | Submission, drafts, verification, assignment, claiming, searchable ticket notes, media, troubleshooting checklists, Labor & Parts, completion, closure, reopening, and permitted imports. |
-| 🔵 **Technician Dashboard** | Assigned work, unassigned coverage, due-date context, claiming, and active notifications. |
-| 🟢 **Daily Room Ops** | Guest, departure, and arrival reports; room access planning; room-status summaries; and report imports. |
-| 🟢 **Room Ranker** | A/B/C room rankings based on active work-order priorities and counts, grouped by floor. |
-| 🟢 **Preventive Maintenance** | Daily, weekly, monthly, and quarterly work; inspection forms; approvals; history; and exports. |
-| 🟢 **Pool Log and Pool** | AM/PM samples, daily checks, retests, chemical usage with inventory deductions in notes, closure reasons, holds, and shared operating status. |
-| 🟣 **Manage Locations and Assets** | Rooms, property areas, equipment details, linked tickets, PM context, manuals, and documentation verification. |
-| 🟣 **Enseo Assignments** | Physical TV and set-top-box locations, pairing, endpoints, device moves, and assignment history. |
-| 🟠 **Inventory and Labor & Parts** | Per-part status and summary pills, issue-based supply suggestions, on-hand/reserved/available counts, confirmed work-order and pool chemical usage, stock deductions, linked Order Ideas, vendors, and proposals. |
-| 🟠 **POs** | Orders, approval evidence, item lines, shipments, backorders, physical receiving, stock, and item-spending summaries. |
-| 🟡 **Staff Notes and notifications** | Shift handoffs, replies, media, mentions, linked work, in-app updates, and supported device push. |
-| 🟡 **GSS Reports** | Dated guest-satisfaction scorecards, rankings, sample sizes, source trends, and previous reports. |
-| 🟡 **Hours Tracker** | Personal time entries, two-week totals, pay estimates, leave entries, and configured leave balances. |
-| 🟡 **Candidate questionnaires** | Authorized human review of submitted questionnaires and original résumé PDFs. |
-| 🟡 **Account and administration** | Profile preferences, notification settings, ChatGPT authorization, user access, roles, and feedback. |
-
-Availability depends on the account's role, record state, and configured integrations.
-
----
-
-## Work Orders and Technician Dashboard
-
-🔵 **Keep the report, repair, and history together.**
-
-### Review and assign
-
-Engineering checks the location, description, supporting media, possible duplicates, and priority. Approved work can be assigned to a technician or left for an authorized technician to claim.
-
-The work list supports search, filters, sorting, and status groups. The **Technician Dashboard** separates **Assigned Work** from **Unassigned Coverage**, with ticket and due-date context and active notifications.
-
-### Investigate and repair
-
-A ticket brings together the reported issue, room context, selected equipment, attachments, notes, troubleshooting progress, and repair history. Staff record what they checked, found, changed, and still need to address.
-
-The Reported Issue section groups work details and assignment controls. Permitted dropdown changes save as they are selected; related equipment changes may update category and priority together. A confirmed value different from the value shown when the ticket opened appears green. Selecting the opening value again saves it and restores the usual color. If a save cannot be confirmed, the selection remains available and CMPRI displays an error.
-
-Selecting **Closed** changes the status without closing the work-order view. **Save Changes** remains available for other unsaved work-order edits. Section icons help staff distinguish the issue, notes, troubleshooting, labor and parts, and preventive maintenance.
-
-The work-order title stays visible while scrolling and shows the current guest's group badge, Bonvoy status, and name when available. After checkout, it shows the incoming reservation's guest information when available. Today's checkout displays the departure time from Daily Room Ops, defaulting to 11:00 a.m. when no time is specified; future checkout dates appear without a time.
-
-**Reported Issue** and **Preventative Maintenance** start collapsed and can be expanded for details. The maintenance control opens the linked form or the room’s quarterly form when available; for an unlinked non-room location, staff can select the appropriate form in the PM workspace.
-
-Use **In Progress** where permitted. Parts and outside-service follow-up can remain connected to the repair through notes and the relevant supply workflows.
-
-### Complete, review, and close
-
-Record the repair, final action or root cause in the ticket notes, along with permitted parts, cost, or labor details. The expandable **Notes & Ticket History** section keeps the note input, Upload, Camera, and Submit Note together with the ticket history. Closure information stays in the shared history rather than a separate Closure Details panel. Mark the task **Completed** when the work is finished.
-
-**Completed** and **Closed** are separate stages. An authorized reviewer performs final closure. Authorized staff can reopen work or record **Will Not Do** with an explanation when a repair will not proceed.
-
-**Typical path:** Report → Verification when required → Open → Assign or claim → Investigate and repair → Completed → Authorized closure → Repair history and handoff.
-
-### Import existing issues
-
-Where authorized, the import workspace accepts SafetyCulture or spreadsheet issue lists from pasted tables or CSV, TSV, and TXT files. Staff parse and preview rows before importing. The workflow validates locations, blocks repeated source IDs, and skips likely duplicates, with links to existing tickets where available.
-
-## Labor and Parts
-
-🟠 **Connect each confirmed part to inventory and purchasing, with all activity in the ticket notes.**
-
-**Labor & Parts** and **Suggested Troubleshooting** both start collapsed. Their matching gold titles keep a triangle visible in both states: right-pointing when collapsed and down-pointing when expanded. The compact selected-part status control appears in the **Labor & Parts** heading. Open the section to review the supply, quantities, and labor details together on desktop and mobile.
-
-### Select the part and supply
-
-The work order's current issue narrows suggested parts and in-house supplies using everyday wording. For example, “Bathroom light is out” can surface lighting supplies without deciding which component failed.
-
-Suggestions update when the issue changes. They do not replace an already selected part, change recorded usage, or create an order. **Show all supplies** expands the full inventory list.
-
-Selecting a saved part with a confirmed inventory link fills **Supply** automatically. Otherwise, staff choose the correct inventory item; an approximate name or symptom does not establish a stock match. Explicit parts mentioned in technician notes—including needed, ordered, used, or replaced items—can be offered for review without automatically ordering or deducting anything.
-
-### Track each part's status
-
-The **Status** control applies to the selected individual part, not the whole work order. Its choices appear in this order:
-
-| Status | What it means in CMPRI |
+| Front Desk and Housekeeping | Report problems, review permitted work orders, add permitted updates, and communicate with Engineering. |
+| Technicians | Work assigned or available tickets, use troubleshooting guidance, document repairs, and perform permitted PM tasks. |
+| Engineering leadership | Review requests, coordinate assignments, oversee PM, manage equipment and supplies, and perform authorized closure actions. |
+| Management | Review operational information and use tools granted to the account. |
+| Administrators | Maintain authorized user, role, location, and system-management functions. |
+On desktop, tools open in movable, resizable windows so staff can keep related information visible together. Staff can open and switch up to five work orders in a workspace; the work-order list, Manage Locations, and Staff Notes do not count toward that limit. Opening an already open ticket brings it forward. At the limit, close one work order before opening another.
+Mobile layouts adapt the workflows to smaller screens. Shared modal colors, consistent action controls, and responsive layouts help staff move between tools without losing the surrounding workspace.
+Dashboard controls and available actions follow the signed-in account. A shared operational account can prompt for a staff posting or reporting name; that name identifies the contribution without creating a separate user account.
+Viewing, editing, assignment, approval, and closure are separate permissions. Seeing a record does not imply permission to change every field.
+## 2. Review the Current Operating Picture
+A typical shift begins with the work list, current room information, pool status, scheduled PM, and recent Staff Notes.
+### Work Order List
+Use the list to find pending requests, open work, work in progress, urgent or high-priority work, overdue items, completed work, and other available status groups.
+The filter controls show counts and adapt to desktop windows and small screens. Search, sorting, and paging help staff locate a ticket without opening every record.
+A list entry brings together several kinds of information:
+| Information | How it helps |
 | --- | --- |
-| **In-House** | The part is mapped to sufficient available inventory when saved. |
-| **Need to Order** | Saving the requirement creates or updates a linked **Order Idea** in the existing inventory workflow. It does not create a PO. |
-| **On Order** | The linked PO establishes that the part is ordered under CMPRI's existing purchasing rules. |
-| **Received** | Recorded physical receipts cover the quantity needed for that part, using the inventory unit. |
-
-**On Order** and **Received** reflect linked purchasing and receiving records; they cannot be established by changing a dropdown alone. Partial receipts leave an unmet requirement **On Order**. Cancelling remaining PO work does not erase a part's completed physical receipt.
-
-If a linked PO item's identity or unit mapping changes, staff review and relink it. CMPRI does not silently substitute a different supply for the repair.
-
-### See parts status at a glance
-
-A compact **parts status pill** appears immediately after the **priority pill** in both the work-order list and the open work order. Both views use the same colors and height on desktop and mobile.
-
-| Parts status | Pill color |
+| **Work-order reference, status, and priority** | Identify the ticket and decide what needs attention. |
+| **Room or property location** | Establish where the work belongs. |
+| **Occupancy and checkout context** | Coordinate access with the current room-operation snapshot. |
+| **Guest name and indicators** | Show available group and loyalty information alongside the current guest. |
+| **Incoming reservation information** | Distinguish an upcoming stay from the current occupant. |
+| **Issue summary and source information** | Understand the reported problem and available import context. |
+Guest group badges appear after the guest name, rather than being treated as part of the room number. Supported indicators include CN Railway, Big Ten, and Flyover Film Studios. The same shared guest indicators are used in work-order detail and modal title bars where guest information is available.
+The membership-tier help control explains the custom loyalty symbols without leaving the work list. Group affiliation, loyalty tier, room status, and ticket priority convey different information.
+Opening a ticket shows its full repair record. Saved drafts remain distinct from submitted active work orders.
+### Daily Room Ops
+Daily Room Ops combines imported guest and housekeeping reports into the room context used by Engineering. It supports room-access planning, departure coordination, incoming reservations, and detected room moves.
+The selected **Report Date** controls the view. Source-date information distinguishes a newly accepted report from an older snapshot carried forward for reference.
+#### Report Set
+| Report | Requirement | Purpose |
+| --- | --- | --- |
+| **In-House Guest List Details** | Required first for the day. | Establish the current in-house guest and stay information. |
+| **Housekeeping Departures** | Optional. | Supply matching departure information, including explicit checkout times where provided. |
+| **Housekeeping Arrivals** | Optional. | Supply incoming reservations and associated arrival information. |
+Optional reports can be included with the guest list or added after that day's guest list has been accepted. Current and incoming guest fields remain separate.
+#### Import from Drive
+The **Upload Room Ops** control has two distinct actions. **Drive** uses the existing Google Drive folder that receives approved email attachments; **File** uses the manual upload workflow.
+For Drive:
+1. Select **Drive** when the approved reports are ready.
+2. CMPRI searches the configured attachment folder for the three recognized report filenames.
+3. It compares each filename's timestamp with the previously accepted report of the same type.
+4. It fetches the newest eligible CSV for each type and runs the normal report and room validations.
+5. A successful batch is applied directly. A status message confirms the import and shows server processing time.
+6. If fetching, validation, or saving fails, the interface shows the reason. A failed batch does not replace the previously accepted report.
+Drive import does not open the manual file form or ask for a second confirmation after successful validation. The **Drive** click is the event that starts acquisition: no timed polling or automatic background Drive import is used.
+If there are no newer eligible reports for today, CMPRI reports that result and keeps the accepted room data.
+#### Import a File
+For files already on the device:
+1. Select **File** and choose the original report files, or add them through the expanded upload form.
+2. Include the required in-house guest list first, unless today's guest list is already accepted.
+3. Optionally include housekeeping departures and arrivals.
+4. Select **Submit** to validate the batch and generate the review preview.
+5. Review the extracted room details and select **Confirm Import** to save.
+The file workflow accepts supported CSV and image formats under the application's file limits. CSV is preferred because it preserves the exported report values without image transcription. Manual file uploads retain their preview and confirmation step.
+#### Filename Freshness and Validation
+Keep the original CMPRI report names. Recognized names contain the report type, property code, and `YYYY-MM-DD_HH-MM-SS` timestamp—for example:
+```text
+In House Guest List Details_CMPRI_YYYY-MM-DD_HH-MM-SS.csv
+Housekeeping Departures_CMPRI_YYYY-MM-DD_HH-MM-SS.csv
+Housekeeping Arrivals_CMPRI_YYYY-MM-DD_HH-MM-SS.csv
+```
+The timestamp inside the filename establishes that report's ordering. A later Drive upload or modification time does not make an older report a newer source.
+- Freshness is compared separately for in-house guests, departures, and arrivals.
+- The guest-list workflow requires reports dated today in the hotel's timezone.
+- Optional reports may be no more than five minutes earlier than the in-house guest list.
+- A replacement with different content must be newer than the accepted version of that report type.
+- Purchase orders and unrelated attachments in the same folder are ignored.
+- Required columns, guest-stay details, active room references, and conflicting incoming reservations are validated before saving.
+- Conflicting newest copies or a report changed during acquisition require correction rather than an arbitrary choice.
+- If the accepted room report changes during processing or review, the outdated save is rejected.
+These are report-data checks, not a requirement to manually inspect every successful Drive import.
+#### Reading the Room Context
+A room can show occupancy status, the current guest, stay length, checkout information, incoming reservations, and group or loyalty indicators. Scheduled departure information supports planning; it is not proof that the guest has physically checked out.
+Stay data is projected using recorded dates and times. Current guest information clears after its scheduled checkout boundary, and eligible incoming information can become the current stay at its recorded arrival boundary. This display behavior does not require another report upload and does not start another Drive fetch.
+The CN Railway badge is assigned from the imported **Group Name** column. **CN RAILWAYS** is a recognized label. A guest name resembling a railway company does not by itself assign the badge. Updating the source group or moving to another effective stay changes the associated indicator.
+When a room move is detected, staff can review its source and destination room numbers alongside the room-operation information.
+### Room Ranker
+Room Ranker groups rooms by floor and derives the displayed rank from the highest active ticket priority:
+| Rank | Current ticket context |
 | --- | --- |
-| **In-House** | ⚪ Gray |
-| **Need to Order** | 🟠 Amber |
-| **On Order** | 🔵 Blue |
-| **Received** | 🟢 Green |
-
-For a ticket with parts in different stages, the summary shows the first unresolved stage: **Need to Order**, then **On Order**, then **In-House**. It shows **Received** when all recorded parts are received. Tickets without recorded parts have no parts status pill.
-
-The pill follows the saved parts and linked purchasing/receiving records. Staff continue to review each individual part in **Labor & Parts**; the summary does not change those records.
-
-### Record actual usage and inventory counts
-
-The supply list shows **on hand**, **reserved**, and **available** quantities. Staff enter the quantity and unit actually used, then choose **Record supply use**.
-
-Recording usage deducts available inventory and writes the ticket note together. Retrying an interrupted save confirms the same operation rather than deducting stock twice. Counts cannot be overdrawn, and items tracked as **Each** require whole-item usage.
-
-For example, **12 on hand − 2 reserved = 10 available**. Using **1 Each** leaves **11 on hand and 9 available**. These numbers illustrate the calculation; actual counts come from CMPRI.
-
-PO receiving adds physically received stock through the existing receiving workflow. A needed part, Order Idea, shipping notice, or status selection does not add or consume inventory.
-
-### Keep one ticket-note history
-
-Part requirements, Order Ideas, PO changes, physical receiving, and recorded usage post to the work order's existing ticket notes. Usage entries retain the item, quantity/unit, technician, date/time, and stock change. Staff can find work orders using part names or note text.
-
-There is no separate Labor & Parts note field or duplicate parts-history panel. Existing **Hours** and **Cost** remain in the section; legacy recorded parts information is preserved.
-
-All matching and workflow checks use application rules. **The Labor & Parts workflow makes no AI calls.**
-
-## Daily Room Operations
-
-🟢 **Plan work around room use and access.**
-
-**Daily Room Ops** combines in-house guest, departure, and arrival reports while keeping current occupants and incoming reservations separate. Staff can search room and guest context, review status summaries, and use room information to plan maintenance access.
-
-- **Drive:** Fetch newer approved CSV reports from the configured folder. A successfully validated batch is applied directly.
-- **File:** Upload supported CSV reports, review the preview, and confirm the import.
-
-The in-house guest list is required first for the day; departure and arrival reports can follow. Selecting **Drive** starts acquisition; refreshing the room view does not start another import.
-
-The latest accepted report remains available until replaced by a newer verified report. Guest stays expire at their recorded dates and times. Scheduled checkout and projected availability still require physical checkout and room-readiness confirmation through property procedures.
-
-## Room Ranker
-
-🟢 **See maintenance priorities across rooms and floors.**
-
-**Room Ranker** groups rooms by floor and ranks them using the original priorities and counts of active tickets. The highest applicable rank wins:
-
-| Rank | Meaning |
+| **A** | Low-priority work or no active tickets. |
+| **B** | Medium-priority active work. |
+| **C** | High- or urgent-priority active work. |
+Staff can filter by rank, expand a floor, open the leading issue's work order, and use **+N more** to inspect additional issues. Completed, Closed, and Will Not Do tickets are excluded from the active ranking.
+This is a ticket-based operating view, not a separate inspection score. Repair findings and ticket status remain in the work-order record.
+## 3. Submit a Maintenance Request
+Report the problem as observed; a technical diagnosis is not required. For example: “Room 316 is not cooling.”
+1. Open **Create Work Order** or the available work-order launcher.
+2. Select the room or property location and describe the issue clearly.
+3. Add useful photos, video, or notes, and enter the reporting name if prompted.
+4. Select **Submit Request** or **Create Work Order**, as available to your role.
+The simplified form can suggest a category, priority, and equipment based on the issue and location. Staff with technical editing permission can review or adjust the available fields. Similar active work may trigger a duplicate warning; multiple distinct problems may prompt suggestions for separate work orders. Review those suggestions before proceeding.
+Eligible users can save an unfinished report as a **Draft**. A draft is not a submitted active ticket. Requests from submission-only roles enter **Pending Verification**; authorized Engineering submissions can start as **Open**. If an attachment upload needs recovery, a ticket that has already been created is retained.
+## 4. Review, Prioritize, and Assign Work
+Authorized Engineering staff use the work lists and approval tools to review incoming requests. For each request:
+1. Confirm the location and clarify the reported issue.
+2. Check for duplicates and review supporting media.
+3. Confirm the equipment, category, and priority where permitted.
+4. Approve the request for active work or record another appropriate disposition.
+5. Assign the ticket, or leave it available for an authorized technician to claim.
+Assignments, status changes, and subsequent updates remain associated with the ticket. Use the work-order list to find work by status or priority and review room context before arranging access. Room report information supports planning; a scheduled checkout is not proof that a guest has physically departed.
+### Work-order states
+| State | Meaning |
 | --- | --- |
-| **A** | Fewer than 3 Low tickets and no higher-priority tickets. |
-| **B** | 3 Low tickets, or 1–2 Medium tickets. |
-| **C** | 4 or more Low tickets, 3 or more Medium tickets, or any High or Urgent ticket. |
-
-At 3 Low tickets, those tickets automatically rise to Medium priority. At 4 or more Low tickets or 3 or more Medium tickets, the affected tickets rise to Urgent and are due today. As the number of active tickets falls, affected priorities step down and return to their original values; due dates changed by automatic escalation are restored when that escalation ends. Urgent work orders are due today when created or changed to Urgent.
-
-Active property users receive a notification when a room's rank changes, including when it improves; work-order creation alerts continue separately. Phone delivery follows each user's notification settings.
-
-Staff can filter by rank, expand floors, open a room's leading issue, and view additional active issues. The **?** beside the close button opens a ranking key. **Completed**, **Closed**, and **Will Not Do** tickets are excluded from the ranking.
-
-## Preventive Maintenance
-
-🟢 **Organize recurring work and follow-up repairs.**
-
-The PM workspace includes **Weekly Sheet**, **Inspection Forms**, **Quarterly PM**, and **Maintenance History** views.
-
-- Record daily checkbox tasks, weekly work, and monthly maintenance.
-- Complete scheduled inspection forms, readings, notes, and deficiencies.
-- Track quarterly room maintenance.
-- Save unfinished forms and return to them later.
-- Create linked work orders for repairs found during inspections.
-- Review checked tasks, open forms, overall progress, and follow-up needs.
-- Track completion separately from reviewer approval.
-- Export weekly CSV and Excel reporting copies of saved work.
-
-Where spreadsheet synchronization is configured, the workspace also shows relevant workbook context and review-controlled changes. Pool readings are entered in **Pool Log**, with a shortcut from the linked PM form.
-
-## Pool Log and Pool Status
-
-🟢 **Keep testing records and operating status connected.**
-
-**Pool Log** records AM and PM samples, required daily checks, observations, and retests while preserving earlier results.
-
-The shared **Pool** status considers operating hours, required testing, recorded failures, and manual holds. Staff can review closure reasons and use authorized hold or reopening controls.
-
-A passing sample does not clear an independent hold. Saving a test result and authorizing reopening remain distinct actions.
-
+| **Draft** | An unfinished report saved for later work or authorized review; not a submitted active ticket. |
+| **Pending Verification** | A submitted request awaiting authorized verification. |
+| **Open** | Active work ready for attention. |
+| **In Progress** | Work is underway. |
+| **Completed** | The repair or task has been recorded as complete. |
+| **Closed** | An authorized user has performed final closure. |
+| **Will Not Do** | An authorized disposition indicating that the work will not proceed. |
+Transitions depend on role, permissions, assignment, and current state. Completion and final closure are separate actions.
+### Editing and saving
+In **Reported Issue**, permitted dropdown selections save automatically. Related equipment changes may update category and priority together. A confirmed value changed from the value shown when the ticket opened appears green; selecting the opening value again saves it and restores the usual color. If a save cannot be confirmed, CMPRI displays an error and leaves the selection available.
+**Save Changes** remains available for other unsaved edits. Selecting **Closed** changes the status without closing the work-order view. If another person changes a ticket during editing, CMPRI detects the newer revision and preserves local unsaved text for comparison; reconcile the current record before submitting an outdated update.
+## 5. Troubleshoot Within the Work Order
+The work order brings the reported issue, location, equipment, notes, attachments, assignment, and repair information together. Use it to carry the diagnosis forward from one person or shift to the next.
+### Technician workflow
+1. Read the reported issue, room context, notes, and attachments. Check previous findings before repeating work.
+2. Confirm the equipment associated with the issue, including its manufacturer and model when available.
+3. Open **Suggested Troubleshooting** and review the guidance that matches the symptoms or diagnostic code.
+4. Perform the appropriate checks and record observations, readings, codes, and results as you go.
+5. Document work performed and update permitted fields and status. If parts, access, a vendor, or further diagnosis is needed, record the outstanding need and coordinate follow-up.
+6. After the repair, record the outcome and use the permitted completion action. An authorized user can then review and close the ticket.
+### Equipment-matched guidance
+Selecting equipment lets CMPRI look for verified documentation matching its manufacturer and model family or model number. Where suitable material is available, **Suggested Troubleshooting** can show issue-relevant steps, diagnostic and error-code references, manufacturer guidance, PDF excerpts, and links to original manuals and referenced pages. Individual steps can be copied. Recorded work notes help filter steps already completed.
+If guidance is missing, ambiguous, or does not match the issue, the interface says so. Confirm the equipment identity and consult the available documentation or arrange further diagnosis; the suggestions do not establish a diagnosis on their own.
+### What to record
+Write notes that let the next person understand the repair without repeating the investigation:
+- **Checked:** equipment, symptoms, and tests performed.
+- **Found:** observations, readings, diagnostic codes, and relevant results.
+- **Changed:** adjustments, repairs, or parts used, as applicable.
+- **Next:** remaining work, parts or service follow-up, and any access needs.
+Attach supporting media when useful. Where linked external activity is available, the ticket may also show purchases, shipments, service tickets, warranty activity, or supplier follow-up.
+## 6. Complete, Close, or Reopen Work
+1. When the task is finished, record the repair and outcome. Available fields include final action or root cause and, where permitted, parts, cost, labor hours, and other details.
+2. Use the permitted action to mark the work **Completed**.
+3. An authorized user reviews the completed work and performs final **Closed** status.
+If work will not proceed, an authorized user can record **Will Not Do** with an explanation. If a closed ticket needs further attention, a user with reopening permission can return it to an allowed working state. Ticket history preserves the sequence of updates.
+## 7. Run Preventive Maintenance
+The PM workspace brings routine checks, inspections, quarterly room maintenance, approvals, deficiencies, and history together. Completion of a PM task and reviewer approval are separate records. A repair identified during PM follows the work-order workflow; it does not replace the PM record.
+### Choose the work
+Select a week with the week selector or **This week**. Progress indicators show routine completion, open forms, and items needing follow-up. Mobile frequency and day controls help staff find the relevant checks.
+| Section | Use it to |
+| --- | --- |
+| **Weekly Sheet** | Perform daily, weekly, and monthly routine tasks. Each checkbox saves independently for its task and date or period. |
+| **Inspection Forms** | Open scheduled forms or browse the imported catalog; record results, readings, inspection rows, initials, and required details. |
+| **Quarterly PM** | Find a room, complete its checklist, record condition/rank and deficiencies, and enter the completion date. |
+| **Maintenance History** | Review saved checklist responses, inspection records, and room completion information; export available records. |
+### Perform and document PM
+**Routine checks:** Mark the applicable task for its date or period on the Weekly Sheet. Each mark belongs to that task and period. Technician views show recorded completion; reviewer views distinguish work needing approval from approved work. Authorized reviewers can use **Needs Approval** to find pending work.
+**Inspection forms:**
+1. Open a scheduled form or choose one from the catalog.
+2. Enter the required details; mark items complete, needs follow-up, or not applicable.
+3. Add required measurements or inspection rows, observations, deficiencies, and the follow-up plan.
+4. Select **Save draft** if the form is unfinished. Select **Mark complete** when the required information has been entered.
+The form retains its source-document reference. Pool readings are entered in **Pool Log**, accessible through the linked PM form where applicable.
+**Quarterly room PM:** Open the room's form, perform its checklist, record condition/rank and deficiencies, and enter the completion date. The completion date, checklist responses, and review status convey different information; checking one item does not complete the entire room PM.
+### Turn a deficiency into a repair
+1. Describe the deficiency and the follow-up needed on the inspection form.
+2. Select the work-order location and create the linked work order.
+3. Continue the diagnosis, repair, and closure in that ticket; return to the PM form to access the linked ticket.
+The ticket carries the form reference, inspection period, marked deficiencies, and follow-up notes. Continue to complete and submit the PM form for review as applicable; creating a ticket does not itself complete or approve the PM.
+### Review history and export
+Authorized reviewers use the available approval or rejection actions. Review saved responses, inspection records, and room completion information in **Maintenance History**.
+Excel and CSV exports provide reporting copies. **Export Excel** fills supported saved information into the original PM tracking workbook layout while preserving existing formatting, formulas, and untouched content. Editing the downloaded workbook does not update the saved CMPRI record.
+## 8. Resolve Parts and Purchasing Needs
+Inventory and purchasing tools organize supplies, replacement equipment, vendor proposals, and shipments needed for repairs.
+Authorized staff can maintain inventory items, vendors, contacts, equipment compatibility, reorder information, order ideas, and repair-or-replace proposals.
+### Supply Workflow
+1. Identify the required item or equipment.
+2. Check inventory and available quantities.
+3. Record a purchasing need or vendor proposal.
+4. Create or review the purchase order.
+5. Track shipments and backorders.
+6. Record quantities physically received.
+7. Document parts used and remaining work on the repair ticket.
+### Purchase Orders and Receiving
+Orders can be entered manually or brought through configured source-review/import workflows.
+Before receiving stock, authorized staff review acceptance, descriptions, quantities, inventory mapping, and package or unit conversion.
+Shipment information provides delivery context. Physical receipts establish what has been received into inventory.
+Partial receiving supports multiple deliveries.
+Cumulative receiving records the total received to date and adds the newly received difference.
+**Example:** Four cases are ordered, with twelve filters per case.
+- Receiving two cases adds twenty-four filters.
+- Updating the cumulative received total to four after the remaining delivery adds the remaining twenty-four.
+- Saving the unchanged total again preserves the same received quantity.
+Order evidence, receiving history, and recorded values support later review.
+Connected supplier and import workflows depend on the integrations enabled for the deployment.
+## 9. Manage Pool Operations
+Pool operations combine the daily testing record with the shared **Pool** status control.
+1. Open **Pool Log** and select the facility and date.
+2. Review any readings and daily checks already saved.
+3. Enter the required results and observations.
+4. Save the log and read the returned status, closure reasons, and warnings.
+5. Record a retest or use the permitted hold/reopening controls when appropriate.
+#### Samples, Daily Checks, and Retests
+AM and PM testing are separate samples. Each sample records pH and a bromine range. One collected sample is represented as a shared result for the shallow and deep fields; CMPRI does not infer a collection location.
+Temperature, flow rate, main-drain visibility, and filter backwash are daily checks recorded once per day. The PM sample can be added later without changing the saved AM sample. A later retest is recorded as an additional result, preserving earlier findings.
+The **Pool Specs** dialog provides the configured inspection and operating references without crowding the entry form.
+#### Operating Status
+Effective status considers operating hours, required testing, recorded failures, manual holds, and any pending authorized reopening. A passing result does not clear an independent manual hold.
 Authorized staff can select **Close pool** and supply a reason. **Open pool** requests confirmation and clears eligible manual holds only when current tests pass and operating hours permit. Unsafe or missing readings and other required or unclassified holds cannot be overridden. CMPRI records automatic reasons for unsafe readings.
-
 **Daily pool activity** shows dated, timestamped saved reading and note changes together with open and close actions. Use the single **Save Pool Log** control beside the date to save the current entry.
-
-### Record chemical use with the pool log
-
-In **Pool Log**, open the compact **Chemical usage** expanding section. It matches the existing inventory-entry layout and keeps the pool modal's native colors.
-
-The chemical selector includes **only active items classified as Chemical and assigned to the managed Pool Pump Room location**. Items in Pool Area, Pool HVAC Room, or any other location are excluded, as are nonchemical products stored in Pool Pump Room. The same restriction is checked again when the log saves. Existing items with no confirmed type or storage assignment remain excluded until staff verify and assign them in Inventory.
-
-1. Choose the chemical from **Pool Pump Room**. The selector shows the current available quantity for eligible chemicals only.
-2. Enter the **Quantity used** and **Unit** actually used.
-3. Select **Add chemical use**. CMPRI automatically adds the chemical and entered quantity/unit to **Notes / actions taken** and stages the usage with this pool log. Multiple chemicals can be added. **Remove** discards an entry that has not been saved.
-4. Select **Save Pool Log**. The readings, notes, chemical usage, inventory reduction, and inventory movement save together.
-
-Stock changes when the pool log is saved. A rejected database save leaves stock unchanged, and retrying an unconfirmed save uses the same usage identities so inventory is deducted only once. Current available counts refresh after a confirmed save.
-
-Chemical usage follows the existing inventory rules: reserved stock remains protected, available quantities cannot be overdrawn, supported units use the existing conversions, and **Each** items require whole counts. Staff record what they actually used; CMPRI does not choose a chemical or dose from the readings.
-
-The saved log and its audit history retain the chemical, entered quantity/unit, stock quantity/unit, before-and-after counts, operator, and date/time. The matching inventory movement links the reduction to the pool log. Usage stays visible in the log's existing **Notes / actions taken**, including when later observations or chemicals are added.
-
-## Locations, Assets, and Enseo Assignments
-
-🟣 **Connect each repair with the place and equipment involved.**
-
+A closed state can remain while required testing or an authorized reopening decision is pending. Eligible recipients receive closure notifications through the available notification channels.
+CMPRI records observations and applies its configured status rules. The log is not a chemical-dosing calculator or a replacement for required pool-operation procedures. Linked PM checks use Pool Log for the actual readings.
+## 10. Maintain Locations and Equipment
 ### Manage Locations
-
-Authorized staff can add and edit rooms and property areas, review linked PM plans and due dates, see completion history, and open tickets tied to the selected location. Each location row stacks a red work-order count above its PM status at the far right. PM indicators use the PM workspace's native color, and the indicators provide context without separate actions. Open location views refresh when location, work-order, or PM information changes, while keeping the selected location expanded.
-
-### Assets and equipment documentation
-
-Equipment records keep manufacturer, model, serial number, asset tag, installed location, and documentation together. Staff can search equipment, add assets, upload documentation, and review extracted equipment information before applying it.
-
-Verified information is protected against casual edits. Corrections use a documented revision process that retains prior verification and saved files, then requires verification again. Equipment without a confirmed installed location can be identified as unassigned until Engineering verifies its placement.
-
+Locations are the common reference connecting work orders, equipment, and preventive maintenance.
+The **Manage Locations** modal groups active locations by Location Type. Within each group, room numbers and location names are naturally ordered so staff can browse property areas without a long unstructured list.
+Select a location to expand its details. The panel brings together:
+| Detail | Available information |
+| --- | --- |
+| **Location identity** | Room number or location name, Area, and Location Type. |
+| **Linked PM plans** | Plan title, description, scheduled frequency, and last completion date. |
+| **PM due state** | The recorded next due date, including overdue or unset-date indicators. |
+| **Recent PM history** | Recent linked completion dates and recorded completing staff. |
+| **Related work orders** | Tickets tied to the selected room or location, with issue and status. |
+A PM-plan count on the location row helps staff identify records with linked maintenance schedules. Selecting a related ticket opens that work order's repair record.
+#### Edit or Add a Location
+**Edit Location** sits beside **Open PM Tracker** in the expanded panel. Each action appears only when the account has the relevant permission.
+The editor supports the location name, Area, Location Type, and optional room number. Editing an existing record uses Area and Location Type dropdowns based on the options already present in the property records. **Add Location** supports a new location with the available type suggestions.
+Required fields are checked before saving, and an unsuccessful save displays its error without claiming the record was updated.
+**Open PM Tracker** opens the available PM workspace. The location panel is a way to inspect linked maintenance context; work-order repairs and PM completion continue in their respective workflows.
+### Assets and Documentation
+Equipment records identify the asset, assigned location, and manufacturer/model details.
+Documentation can be associated with equipment and verified for troubleshooting use.
+Accurate identity and location records help technicians select the correct equipment and retrieve relevant guidance.
 ### Enseo Assignments
-
-**Enseo Assignments** tracks physical televisions and set-top boxes by room and exact sub-location, with endpoint codes and paired-device information.
-
-Authorized staff can record moves or swaps as one batch, including every affected TV and box. The whole batch saves together, and assignment history records the movement and reason.
-
-## Inventory, Vendors, and Proposals
-
-🟠 **Manage supplies, follow stock changes, and connect purchasing to actual usage.**
-
-Inventory shares its stock records with work-order **Labor & Parts**, PO receiving, and the pool log’s **Chemical usage** section. The compact Inventory modal retains its native colors and supports desktop and mobile use.
-
-### Add inventory with the right identity and location
-
-Use **Add Inventory** to enter the item name, **Type** (Chemical, Part, or Supply), **Stock unit**, and **Opening quantity**. **Storage Location** is populated from active managed locations; staff select the actual location instead of entering free text.
-
-Vendor, SKU, manufacturer, description, compatible equipment, reorder settings, and unit cost can be recorded alongside the item. Opening stock above zero requires a count note. The opening balance and its stock note save together.
-
-Matching inventory opens the existing record rather than creating another copy. Interrupted saves retain the same operation identity, including after reopening Inventory, so retrying cannot duplicate the item, stock change, or Order Idea.
-
-### Expand an item and follow its stock notes
-
-Each expandable inventory item shows **on hand**, **reserved**, and **available** quantities separately, along with storage, unit, vendor/SKU, and reorder details.
-
-**Stock notes** form one searchable, work-order-style chronological history. Entries retain the operator, timestamp in the property’s Central time zone, reason or activity, stock unit, and before-and-after counts where those balances were recorded. Receipts, work-order usage, pool chemical usage, physical-count corrections, returns, and opening balances appear in this same stream, with links to their related records.
-
-Earlier movement notes retain their recorded timestamps. Historical opening balances and before/after figures that were never recorded are not inferred.
-
-### Correct counts and maintain item details
-
-**Adjust stock** records a verified physical count and requires a reason. **Return stock** records the quantity physically returned and its reason. Both commit the stock change, movement, and timestamped note together while preserving reserved quantities.
-
-**Edit details** supports verified corrections to classification, managed storage, description, vendor/SKU, manufacturer, and reorder settings. Stock units are protected after stock or movements have been recorded; earlier zero-stock items without movement history can be corrected before use.
-
-Each items require whole counts. Supported mass and volume units remain separate; a weight ounce is not treated as a fluid ounce. Available inventory cannot be overdrawn. If another operation changes an item, a stale save is rejected and the entered information stays visible for review.
-
-### Keep Order Ideas connected to purchasing
-
-Low-stock items can create an Order Idea. When an open idea already exists for the same item and context, staff use that record. Ideas can be marked **Ready To Order**, linked to an existing PO line mapped to the same item, or dismissed. Ticket-linked parts continue through **Labor & Parts**.
-
-**Ordered** and **Received** follow the linked PO and its physical receiving records. Partial receipts remain outstanding; stock is added through the existing PO receiving workflow. An Order Idea or a status label alone does not add stock.
-
-### Load only what is needed
-
-The catalog uses a bundled, permission-scoped snapshot and local search and pagination. Expanding an item loads its stock notes on demand; older notes load in pages. Cached data speeds reopening, and existing change notifications refresh affected views without periodic inventory polling. The pool chemical list loads when its expanding section is opened.
-
-Save errors appear inside the active dialog, preserving entered information. Unconfirmed saves can be retried safely. **The inventory and pool chemical workflows make no AI calls.**
-
-### Vendors, contacts, and proposals
-
-Vendors and contacts retain company, phone, email, website, preferred/approved status, and equipment relationships. Repair/replace proposals preserve their vendor/contact context, scope, quoted cost, recommendation, and review status.
-
-## Purchase Orders, Shipments, and Receiving
-
-🟠 **Follow an order through physical receipt.**
-
-**POs** brings together order records, item lines, approval evidence, source material, inbound shipments, backorders, receipts, and shared inventory.
-
-Staff can search and filter orders, record manual orders where permitted, review unresolved lines, add or edit items, and inspect source evidence. Configured source-review and Drive intake tools can help reconcile purchase-order documents; conflicting or incomplete documents remain subject to review.
-
-Shipment records provide carrier tracking, ship dates, estimated arrivals, and split-shipment details. Receiving records establish what was physically received, including partial deliveries, and add the corresponding quantity to stock.
-
-The workspace also shows receipt history, purchasing history, and received-item spending summaries for month, quarter, and year to date where prices are recorded. These are item-cost summaries; they do not establish payment status or a complete accounting total. Accepting order evidence or seeing a delivered shipment does not itself receive inventory.
-
-## Staff Notes and Notifications
-
-🟡 **Keep the next shift informed.**
-
-**Staff Notes** supports updates, replies, attachments, GIFs, mentions, and links back to relevant work orders. Use it for outstanding repairs, parts, vendor follow-up, access requirements, and other shift context.
-
-Work-order parts and purchasing activity belongs in that ticket's existing notes. **Staff Notes** remains the separate workspace for general shift communication.
-
-In-app notifications help eligible staff follow assignments, work-order updates, mentions, review activity, room-rank changes, and pool closures. Across the app, the person performing an action is excluded from notifications about that action, including in-app alerts and device push. Other eligible recipients keep their existing notifications. Automatic system alerts continue to follow their normal rules. Supported devices can receive push notifications when enabled and configured.
-
-Work-order status changes notify active Chief Engineers and technicians, subject to account eligibility and notification preferences.
-
-Profile controls provide notification preferences and delivery schedules where available. Event delivery still follows the account's current access and notification eligibility.
-
-## GSS Reports
-
-🟡 **Review guest-satisfaction reporting alongside operations.**
-
-**GSS Reports** displays dated guest-satisfaction scorecards and rankings, including sample sizes, reported metrics, source trend indicators, and previous reports.
-
-When a newer matching weekly source report is available, its original images appear above the verified tables. The tables retain the date of the report from which they were verified.
-
-Scores retain their original reporting periods, such as month to date or wave to date. The displayed reports are dated source snapshots; their dates and periods matter when comparing results.
-
-## Hours Tracker
-
-🟡 **Track personal time and review a two-week estimate.**
-
-Eligible accounts can enter workdays, days off, start and end times, overnight work, and leave. The tracker shows weekly worked, leave, and paid-hour totals, progress toward a 40-hour worked-week goal, and combined totals for the pay period.
-
-Staff can enter an hourly rate and deduction percentage for the period, review an estimated gross and after-deduction amount, and save both weeks. The tracker applies its displayed automatic break rule and distinguishes unentered days from recorded days off.
-
-Company PTO and Illinois Sick leave balances use dated, documented baselines and explicitly configured accrual policies. Unconfigured balances remain identified as such. **Hours Tracker is an estimate, not payroll.**
-
-## Candidate Questionnaires
-
-🟡 **Support authorized human review of applications.**
-
-The candidate-review workspace lists submitted Maintenance and Front Desk questionnaires. Authorized reviewers can open answers, review work history and training, availability, relevant examples, and reported skills, and view an attached original résumé PDF where provided.
-
-Questionnaires are private work-account records and are intended for human review.
-
-## Profiles, User Management, and Feedback
-
-🟡 **Manage account preferences and staff access.**
-
-### Manage Profile
-
-Staff can review their account information and role, update their display name, manage notification settings, and review their ChatGPT connection. Available preferences include language, appearance, and notification-delivery choices. The extent of translated content and delivery options depends on the supported screen and deployment configuration.
-
+Authorized staff can record television and set-top-box assignments, destinations, room sub-locations, and supported pairing or endpoint details.
+Recorded moves preserve assignment history.
+### Front Desk Quick Guides
+Available guest-room, television, and door-lock reference material supports permitted staff handling common operational issues.
+These guides complement equipment-specific troubleshooting inside technician work orders.
+## 11. Communicate and Hand Off Work
+### Staff Notes
+Staff Notes supports shift information, coordination, and discussion.
+Staff can post notes, reply, attach supported media, and select supported mentions for people, roles, locations, or work orders.
+Work-order references help readers return to the relevant repair.
+Shared Front Desk accounts capture a posting name. Name confirmation and display labels help readers identify the staff contribution while the underlying shared account retains its normal access permissions.
+The mention picker distinguishes actual user accounts, roles, captured shared-account staff names, locations, and work-order references. A display-only shared-account name is not an independently enrolled device account. Selecting a location mention does not turn its room number into a work-order reference.
+Unread indicators help eligible staff locate notes requiring attention.
+### Notifications
+In-app notifications direct eligible users to requests, assigned work, mentions, pool closures, and other supported events. Device push is available where enabled and permitted by the browser or device.
+For new work-order notes and status changes, the current notification audience includes eligible Engineering leadership, the assigned technician, and the original submitter. A person who belongs to more than one recipient group receives one alert for that event.
+The note entered when a ticket is first created is part of its creation event; it does not generate a second, separate new-note alert. Creation wording distinguishes a request needing verification from a ticket created as open work.
+Shared-account submissions notify the submitting account where eligible. An entered reporting name does not create a separate notification account.
+Delivery remains subject to current access, device enrollment, notification schedules, and the event's recipient rules. Assignment, explicit mentions, Staff Notes, pool events, and other notification categories keep their own policies.
+### End-of-Shift Handoff
+1. Update work-order notes and statuses.
+2. Identify repairs awaiting parts, vendor action, access, or further diagnosis.
+3. Save unfinished PM forms and document deficiencies.
+4. Confirm pool readings, holds, and closure reasons.
+5. Post a Staff Note linking work the next shift needs to continue.
+Keep repair findings and status in the work-order record. Use Staff Notes to coordinate the handoff.
+## 12. Supporting Reports and Account Tools
+| Tool | Operational use |
+| --- | --- |
+| **GSS Reports** | Review available guest-satisfaction reports, rankings, and prior periods. |
+| **Hours Tracker** | Maintain permitted personal hours and leave information. |
+| **Candidate Questionnaires** | Allow authorized reviewers to inspect employment questionnaires. |
+| **Manage Users** | Maintain authorized access and role assignments. |
+| **Manage Profile** | Maintain available preferences and account settings. |
+| **Feedback** | Submit application feedback for authorized review. |
+| **ChatGPT Connection** | Connect an individual account for the supported conversational workflows below. |
+Available tools and actions depend on the account.
 ### Manage Users
-
-Authorized administrators can invite users, assign permitted roles, and deactivate access. Deactivation retains the account's CMPRI history. Available management controls depend on the administrator's permissions.
-
-### Feedback
-
-Staff can report application problems or suggestions. Authorized reviewers can review submitted feedback and maintain its review state. Feedback provides application-improvement context; maintenance problems belong in work orders.
-
-## Photos, Documents, and Text Recognition
-
-🟣 **Keep source material close to the work.**
-
-| Use | Supported limits |
+Authorized account managers can invite users, assign permitted roles, and deactivate or reactivate eligible accounts. Editing scope depends on the manager's role and the target account; an account shown in the list may be view-only.
+Each account keeps its existing **Active** or **Deactivated** status. In the same muted status line, CMPRI shows the last sign-in reported by Supabase Auth or **Waiting for verification** when confirmation is still outstanding.
+A confirmed account that has not signed in can show **Never signed in**. If authentication metadata cannot be read, CMPRI shows that sign-in information is unavailable rather than incorrectly calling the account unverified.
+A small green dot appears when an active user is currently connected to the app. No dot is shown when that user is not online. This is a presence indicator, not a guarantee that someone is available or looking at the screen.
+Deactivation retains the account's linked CMPRI history. It is separate from removing historical work records.
+## ChatGPT Integration
+CMPRI includes an optional ChatGPT connection that lets authorized staff work with supported records through conversation.
+Staff can ask questions about accessible information and explicitly request supported changes without navigating every screen individually.
+The connection uses **OAuth** and the **Model Context Protocol (MCP)**.
+Each person signs in with their own CMPRI account. CMPRI checks active status, property membership, role, permissions, and connection access when tools are used.
+### Connect an Account
+1. Open **Manage Profile → ChatGPT Connection**, where available, and follow its instructions.
+2. In ChatGPT’s app/connector settings, add CMPRI using the endpoint shown in the application and select OAuth authentication.
+3. Sign in using the account linked to the CMPRI profile.
+4. Approve the requested access.
+5. Return to CMPRI to review connection status.
+The connection can be read-only or read-and-write, depending on the authorization granted.
+This OAuth connection does not require staff to share CMPRI credentials or supply an OpenAI API key.
+Custom-connection availability depends on the ChatGPT account and organization settings.
+### What ChatGPT Can Read
+The connector exposes supported views available to the connected account.
+Depending on permissions and configuration:
+| Area | Supported uses |
 | --- | --- |
-| **Work-order media** | Supported photos and videos, up to 10 MiB per file. |
-| **Staff Notes** | Up to 20 attachments and GIFs combined, with uploaded files up to 100 MiB each. |
-| **Equipment documentation** | Supported documents, including PDFs up to 50 MiB. |
-
-Confirm that uploads finish. A ticket can save even if an attachment needs a retry. New-work-order drafts retain report details; selected photos and videos must be selected again after reopening.
-
-The built-in **OCR reader** recognizes English text from supported images and PDFs on the user's device. Staff compare the result with the original and correct it before using it in room operations, equipment, purchasing, or PM.
-
-Recognized text is reference material. Reading a document does not automatically import a report, attach equipment documentation, update stock, or complete an inspection.
-
-## Optional ChatGPT Connection
-
-🟡 **Use supported CMPRI tools through an authorized personal connection.**
-
-Staff can connect their own CMPRI account to ChatGPT and ask for supported information or explicitly request supported changes. Examples include:
-
-- “Show the open work orders for Room 316.”
-- “Create a work order for the lobby: the ceiling light is flickering.”
+| **Work orders** | Search accessible tickets; read a specific ticket, activity, and available attachment information; summarize status, assignments, and findings. |
+| **Rooms and daily operations** | Find active locations and read available room-operation records, out-of-order rooms, departures, and detected moves. |
+| **Equipment** | Search equipment and read available records, documentation information, and maintenance references. |
+| **Inventory and vendors** | Read supported inventory, vendor, compatibility, and proposal records in the engineering catalog. |
+| **Purchasing** | Review available purchases, shipments, and related operational records. |
+| **Pool** | Read a dated facility log, recorded testing, missing daily checks, and returned operating-status information. |
+| **PM references** | Read supported PM workbook references where configured and permitted. |
+| **Administration** | Read permitted drafts, feedback, user-management information, and Enseo assignments. |
+| **Personal hours** | Read the connected account’s own timesheet where that private feature is enabled. |
+ChatGPT can organize returned information into a repair summary, outstanding-work list, or draft handoff.
+Saving or posting a result requires a supported action and an explicit request.
+### What ChatGPT Can Change
+A write requires both a read-and-write connection and the relevant CMPRI permission.
+Supported changes include:
+- **Work orders:** Create requests, import validated data, update permitted fields, assign work, and change status where authorized. Supported cancellation records **Will Not Do** while retaining history.
+- **Drafts:** Create, update, or remove permitted drafts under ownership and supervisory rules.
+- **Room operations:** Validate and import structured room reports extracted from supplied images or other supported inputs.
+- **Equipment and locations:** Create or update equipment and update permitted room/location records. Verified equipment changes follow documentation revision rules.
+- **Engineering catalog:** Create or update supported inventory, vendor, contact, compatibility, order-idea, and proposal records.
+- **Purchasing operations:** Update supported purchase or shipment statuses and run an authorized mailbox scan where enabled.
+- **Pool logs:** Save supplied readings, required daily checks, remarks, and supported retests under normal validation.
+- **Enseo assignments:** Save validated batches of device-assignment changes.
+- **Profile and administration:** Update permitted profile details, submit or review feedback, and perform authorized user-management actions.
+- **Personal hours:** Save the account’s own complete timesheet period where enabled. Clock-in and clock-out are separately activated, account-specific features.
+The connector exposes a defined set of actions.
+Native PM form completion and approvals, Staff Notes posting, and physical PO receiving are handled through their application workflows when no corresponding connector action is available.
+Direct PM spreadsheet writes are currently disabled.
+### How a ChatGPT Work-Order Request Flows
+For:
+> Create a work order for Room 316: the air conditioner is not cooling.
+The workflow is:
+1. ChatGPT identifies the location and reported issue.
+2. An unclear or ambiguous location requires clarification.
+3. CMPRI checks submission permission, validates the location, applies attribution and classification rules, and checks duplicates.
+4. A successful response returns the created work-order information.
+5. The ticket follows the normal verification, assignment, repair, and closure workflow.
+For an update, the current record and revision must be checked before permitted changes are submitted.
+The tool response determines whether the change succeeded. Preparing a change or validating an import does not confirm that it was saved.
+### Daily Room Ops from Drive Through ChatGPT
+Where the current connector schema exposes the supported Drive import mode, an authorized account can request newer reports from the configured attachment folder through the existing room-import action.
+The connected workflow previews the source-backed import first. An explicitly requested confirmation must refer to that preview's accepted-report version and source fingerprint; changed files require a new preview. It uses the same acquisition and validation rules as the application.
+This connected preview/confirmation sequence is distinct from the application's **Drive** button, which validates and applies an eligible batch directly in one action.
+Connector settings can retain an older tool schema after an application update. If a tool rejects an input mode before the request reaches CMPRI, the application interface remains the supported alternative; a connector error is not evidence that an import was saved.
+### Room Reports Through ChatGPT
+An authorized user can supply report images for ChatGPT to read and prepare:
+1. Supply all pages and identify the intended report/date.
+2. ChatGPT reads CMPRI’s import requirements and extracts required room information.
+3. Current and incoming guest fields remain separate, with printed dates, times, and page details preserved.
+4. Unreadable or missing required fields need clarification.
+5. The prepared import is validated before saving.
+6. When explicitly asked to import, ChatGPT submits the verified data.
+7. After success, the saved view can be read back to report out-of-order rooms and detected moves.
+### Pool Entry Through ChatGPT
+ChatGPT can read the existing log, ask for missing readings or daily checks, and submit values the user supplies.
+Normal edit restrictions apply. Existing samples and history are retained.
+Returned closure reasons and warnings must be reported back to the user.
+Reopening and manual holds continue to follow CMPRI’s operating rules and permissions.
+### Example Requests
+Each example requires the corresponding access and supported action:
+- “Show the work orders I can access for Room 316.”
 - “Summarize the findings and remaining work on this ticket.”
-- “Read today's pool log and tell me which checks are missing.”
-
-The connection uses **OAuth** for account authorization and **MCP** for supported tools. Access can be read-only or read-and-write; CMPRI checks the connected account's current permissions. Staff can review or revoke the connection in **Manage Profile → ChatGPT Connection**.
-
-Available actions depend on connector and deployment configuration. Native PM completion and approvals, Staff Notes posting, and physical receiving use their application workflows where the connector does not support them.
-
-## Desktop and Mobile Workspace
-
-🔵 **Use the same operational tools across screen sizes.**
-
-The desktop workspace organizes tools into **Work Orders**, **Operations**, **Assets and Inventory**, **Admin**, and **Account** menus according to role. Movable windows let staff keep related work visible together.
-
-Staff can open and switch up to five work orders in one workspace while keeping other tools and their drafts open. The work-order list, Manage Locations, and Staff Notes do not count toward that limit. Opening an already open ticket brings it forward; at the limit, close one work order before opening another. Links in Staff Notes can open the referenced work order where the account has access.
-
-Menu buttons and group headings show a pointing hand for clicking and a grabbing hand while rearranging. A stationary mouse press activates on release; dragging keeps the selected item under the pointer and does not block a subsequent click. Touch long-press and keyboard reordering remain available.
-
-Responsive layouts adapt the workspace for phones and tablets. Role-specific dashboards focus on the work each account can perform. Work-order fields stay clear of floating personal notification bells, and the existing dashboard notification access remains available. Supported deployments also include seasonal visual themes.
-
-After Google sign-in returns to CMPRI, the seasonal background and loading message remain visible while Engineering or Front Desk dashboard access is verified. The authorized dashboard appears after those checks complete.
-
-The standard work-order list loads the requested page and waits briefly for typing to pause before searching. Troubleshooting illustrations load as they approach the visible area. The seasonal leaf animation stops while hidden, paused, or reduced motion is enabled; its settled leaves remain in place within a 480-leaf limit.
-
-Permission-scoped reference, inventory, and parts snapshots are cached locally to speed repeat views. Inventory search and list pagination use the local snapshot; stock-note history loads only when requested. Existing work orders refresh from the server when opened; opening **Labor & Parts** also refreshes inventory and PO context. Cached counts can display first, but stock-changing controls wait for current server data.
-
-Unsaved part edits and interrupted-save references are retained locally for recovery, scoped to the account, property, and ticket. Refreshing does not silently discard unsaved edits. Authorization and saving require an internet connection. Some cached room information can include guest details; sign-out cleanup is best effort, so shared devices should follow property policy.
-
-## Roles and Permissions
-
-🟡 **Match access to staff responsibilities.**
-
-| Staff | Typical responsibilities |
-| --- | --- |
-| **Front Desk and Housekeeping** | Report issues, follow permitted tickets, and coordinate with Engineering. |
-| **Technicians** | Work assigned tickets, claim permitted unassigned work, record repairs, and perform PM. |
-| **Engineering leadership** | Verify requests, prioritize and assign work, review completions, and coordinate maintenance operations. |
-| **Management and administrators** | Review operations and manage the users, locations, equipment, and settings their permissions allow. |
-
-Viewing, editing, assignment, approval, and closure have separate permissions. Property membership, the record's state, and configured capabilities also determine available actions.
-
-## How the App Is Built
-
-| Layer | Technology and purpose |
-| --- | --- |
-| **Interface** | TypeScript, React, and Next.js provide the desktop and mobile workspace; Tailwind CSS and custom styles shape the interface. |
-| **Application server** | Next.js server routes validate requests, permissions, and record changes. |
-| **Accounts and data** | Supabase provides authentication, PostgreSQL records, and file storage. |
-| **Hosting** | The application is deployed on Vercel. |
-| **Connected services** | Configured integrations support Google Drive reports, email and spreadsheet workflows, notifications, and ChatGPT. |
-
-To reduce repeated work, notification recovery checks recipients with pending deliveries, regular Gmail scanning skips messages already processed, and a short-lived server cache reuses verified PDF text and image derivatives while each request still checks access. The retired room-reconciliation schedule has been removed.
-
-A browser request reaches the application server, which checks the account, property membership, permissions, and record rules before accessing data. The interface displays the result and refreshes affected views after successful changes.
-
-## Application Access
-
-[Open CMPRI Engineering](https://www.cmpri-engineering.com/)
-
-Application access requires an authorized staff account. Tools, records, integrations, and actions vary with permissions and deployment configuration.
-
+- “Create a work order for the lobby: the ceiling light is flickering.”
+- “Assign this work order to the technician I selected and mark it In Progress.”
+- “Record that the filter was replaced and mark this repair Completed.”
+- “Find the equipment and available documentation references for this room.”
+- “Read today’s pool log and tell me which required checks are missing.”
+- “Validate these report pages and show missing information before saving.”
+- “Review the available shipment records for this repair.”
+### Access and Revocation
+Read-only connections expose permitted reads.
+Write-enabled connections additionally expose actions allowed by the user’s current CMPRI permissions.
+Every change must be explicitly requested and remains subject to normal validation.
+The connection screen provides **Revoke ChatGPT access**. Revocation prevents subsequent use of the revoked connection.
+An older read-only connection can be revoked and reconnected with approved read-and-write access where appropriate.
+## Updates and Device Caching
+CMPRI caches suitable information locally to make repeat views faster and reduce unnecessary requests.
+Change notifications help affected windows and browser tabs refresh. Successful writes invalidate relevant cached records so related views can reload current information.
+Daily Room Ops distinguishes two kinds of activity: ordinary room-data refreshes keep the view current, while a **Drive** click explicitly requests report acquisition. Refreshing the room view does not schedule another Drive import.
+Cached application information remains scoped to the signed-in user, property, and permissions.
+Sign-out clears the application’s device data cache. Sensitive categories use restricted caching or continue through network requests. Raw Drive report CSVs bypass the device data cache.
+Local caching supports faster reads. Online authorization and successful saves remain part of the workflow; this is not a general offline work-order submission system.
+### Seasonal Artwork
+Seasonal artwork uses a separate local asset cache.
+The Thanksgiving layouts include an animated turkey, separate pumpkins, greeting, and layered leaves for desktop and mobile.
+Cached artwork can load and animate offline without repeatedly fetching database records.
+Landed leaves accumulate in persistent piles on their existing layers. The desktop greeting sits at the upper right with clearance for the expanded header.
+Changed artwork files receive updated content versions.
+## Example Maintenance Cycle
+1. Front Desk reports a guest-room air conditioner that is not cooling and attaches a photo.
+2. The request enters verification.
+3. Engineering reviews the location, issue, priority, and equipment.
+4. The approved ticket is assigned to a technician.
+5. The technician reviews prior findings and available equipment-matched troubleshooting.
+6. Inspection identifies a replacement part.
+7. Authorized staff review inventory or purchasing needs.
+8. The part is obtained through the appropriate inventory or receiving workflow.
+9. The technician completes the repair and records findings, action, root cause, and permitted work details.
+10. The technician marks the work complete.
+11. An authorized user performs final closure.
+12. History remains available, and remaining operational follow-up is included in the shift handoff.
+A scheduled PM inspection can enter the same cycle through a linked deficiency work order.
+An authorized ChatGPT connection can assist at supported points—for example, creating the initial request, retrieving ticket information, summarizing findings, or submitting a permitted update when explicitly requested.
+## Release and Validation
+### November 8, 2026
+The current workflow documentation includes:
+- Event-driven Drive discovery of the three Daily Room Ops CSV report types.
+- Independent filename-timestamp comparison against accepted reports of the same type.
+- A compact Drive/File upload control, with the title and Report Date label centered above their controls.
+- Direct application of a successfully validated Drive batch, with failure reasons and server-duration reporting.
+- A separate manual upload form that retains review and explicit confirmation.
+- CN Railway group recognition, including **CN RAILWAYS**, and consistent placement of guest indicators.
+- Account status, authentication sign-in/verification information, and connected-user presence indicators.
+- Work-order note and status notifications for the eligible collaboration audience.
+- Responsive work-order list controls and membership-tier help.
+### Earlier Workspace Improvements
+The November 7 release work included shared modal palettes, Manage Locations refinements, scrollbar and resize repairs, consistent mobile action widths, application data caching, and desktop/mobile seasonal artwork updates.
+The more detailed Manage Locations and PM export workflows are described in their operating sections rather than only in a release list.
+### What Validation Establishes
+Validation combines automated report parsing and API tests, permission and concurrency checks, production builds, and desktop/mobile browser tests.
+The Daily Room Ops rollout also included staff-confirmed live Drive fetching and an accepted import of the three reports. Follow-up interface and direct-import changes were covered by isolated desktop/mobile tests and deployed production availability checks.
+Production availability and API access-denial checks do not imply that every account, physical device, or external integration has been exercised. Feature availability still depends on the signed-in account and configured integrations.
+Processing-time messages describe server work for the measured request. They do not reconstruct an earlier browser click or a period spent reviewing a manual preview.
 ## About This Repository
-
-This repository explains CMPRI Engineering's product features and workflows. The application source code, operational records, integration settings, and deployment configuration are private.
-
-This public overview does not include a self-hosting package or installation instructions.
+`cmpri-engineering-overview` is the public documentation repository for CMPRI Engineering.
+It explains the application, operating workflows, and supported ChatGPT integration while the development repository and operational information remain private.
+This repository is an overview, not a distributable application or self-hosting package. It does not include staff credentials, guest records, report attachments, private integration settings, or production deployment instructions.
