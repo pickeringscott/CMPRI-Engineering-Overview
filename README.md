@@ -39,33 +39,54 @@ See the workflow sections below for requirements, permissions, and limitations.
 - [Release and validation](#release-and-validation)
 - [About this repository](#about-this-repository)
 ## The Operating Cycle
-Work orders bring the request, diagnosis, repair, and history together. A PM inspection can also identify a deficiency that needs a linked work order.
+The work order is the central record for the request, diagnosis, parts follow-up, repair, and history. The following chart shows the documented paths; available actions and transitions depend on permissions and the record's current state.
 ```mermaid
 flowchart TD
-    A[Staff report or authorized ChatGPT request] --> B[Submit maintenance request]
-    B --> C{Verification required?}
-    C -->|Yes| D[Engineering reviews request]
-    C -->|No| E[Open work order]
-    D -->|Approved| E
-    D -->|Other disposition| X[Record disposition]
-    E --> F[Assign or claim work]
-    F --> G[Inspect and troubleshoot]
-    G --> H{Parts or service needed?}
-    H -->|Yes| I[Coordinate parts or service]
-    I --> G
-    H -->|No| J[Repair and document findings]
-    J --> K[Mark completed]
-    K --> L[Authorized review and closure]
-    L --> M[History and shift handoff]
-    L -->|Further work needed; authorized reopening| E
-    P[Scheduled PM] --> Q[Perform and record checks]
-    Q --> R{Repair deficiency found?}
-    R -->|Yes| S[Create linked work order]
-    S --> C
-    R -->|No| T[Complete PM and seek review where required]
-    S --> T
+    A[Staff report or authorized ChatGPT request] --> B[Enter location, issue, and supporting details]
+    PM[PM inspection finds a deficiency] --> PMWO[Create linked work order]
+    PMWO --> V
+    B --> D{Ready to submit?}
+    D -->|No, if permitted| DR[Save Draft]
+    DR --> B
+    D -->|Yes| SUB[Submit request or create work order]
+    SUB --> DUP[Review duplicate or separate-issue suggestions]
+    DUP --> V{Verification required?}
+    V -->|Yes| PEND[Pending Verification]
+    PEND --> REV[Engineering reviews issue, location, priority, and equipment]
+    REV -->|Approved| OPEN[Open]
+    REV -->|Work will not proceed, if authorized| WND[Will Not Do; record explanation]
+    V -->|No| OPEN
+    OPEN --> ASSIGN[Assign or authorized technician claims work]
+    ASSIGN --> PROG[In Progress; assigned technician investigates]
+    PROG --> DIAG[Review notes and equipment; use available troubleshooting]
+    DIAG --> NEED{Parts needed?}
+    NEED -->|No| REPAIR[Perform repair and document results]
+    NEED -->|Yes| CHECK[Identify parts and check inventory]
+    CHECK --> STOCK{Parts available?}
+    STOCK -->|Yes| USE[Obtain available parts]
+    STOCK -->|No| REQUEST[Record purchasing need and review order or proposal]
+    REQUEST --> WAIT[Track order, shipment, and backorder; update parts status as permitted]
+    WAIT --> RECEIVE[Record physical receipt; partial receipts remain possible]
+    RECEIVE --> ENOUGH{Parts available for repair?}
+    ENOUGH -->|No| WAIT
+    ENOUGH -->|Yes| USE
+    USE --> REPAIR
+    REPAIR --> RESULT{More diagnosis or work needed?}
+    RESULT -->|Yes| DIAG
+    RESULT -->|No| DOCUMENT[Record findings, action, parts used, and permitted work details]
+    DOCUMENT --> DONE[Completed]
+    DONE --> REVIEW[Authorized completion review]
+    REVIEW --> CLOSED[Closed]
+    CLOSED --> HISTORY[History and shift handoff]
+    CLOSED -->|Further work; authorized reopening| REOPEN[Return to an allowed status]
+    REOPEN -->|Further work| DIAG
+    REOPEN -->|Ready for review| REVIEW
+    OPEN -.->|Authorized disposition| WND
+    PROG -.->|Authorized disposition| WND
+    WND --> HISTORY
 ```
-This is a typical path, not a promise that every ticket follows every step. Drafts are not submitted work; requests can receive another disposition, and available actions depend on permissions and the record's state. PM completion and review are tracked separately from the linked repair.
+Parts status is separate from the overall work-order status. Keep the parts status and ticket notes current as permitted, including what is needed, ordering or delivery progress, and any remaining follow-up. Shipment information provides delivery context; physical receiving records what actually arrived. The diagram describes stages in the process rather than asserting exact parts-status menu labels.
+A draft is not a submitted active ticket. Not every work order follows every branch. Creating a linked deficiency ticket does not complete or approve the PM form; continue that form's own completion and review workflow.
 ## 1. Sign In and Open the Workspace
 After sign-in, CMPRI presents the workspace appropriate to the staff member’s role and permissions.
 | Staff function | Typical use |
@@ -182,7 +203,7 @@ Assignments, status changes, and subsequent updates remain associated with the t
 | **Completed** | The repair or task has been recorded as complete. |
 | **Closed** | An authorized user has performed final closure. |
 | **Will Not Do** | An authorized disposition indicating that the work will not proceed. |
-Transitions depend on role, permissions, assignment, and current state. Completion and final closure are separate actions.
+Transitions depend on role, permissions, assignment, and current state. An **In Progress** work order requires an assigned technician. Completion and final closure are separate actions. Parts status is tracked separately from the work-order status.
 ### Editing and saving
 In **Reported Issue**, permitted dropdown selections save automatically. Related equipment changes may update category and priority together. A confirmed value changed from the value shown when the ticket opened appears green; selecting the opening value again saves it and restores the usual color. If a save cannot be confirmed, CMPRI displays an error and leaves the selection available.
 **Save Changes** remains available for other unsaved edits. Selecting **Closed** changes the status without closing the work-order view. If another person changes a ticket during editing, CMPRI detects the newer revision and preserves local unsaved text for comparison; reconcile the current record before submitting an outdated update.
@@ -245,9 +266,9 @@ Authorized staff can maintain inventory items, vendors, contacts, equipment comp
 2. Check inventory and available quantities.
 3. Record a purchasing need or vendor proposal.
 4. Create or review the purchase order.
-5. Track shipments and backorders.
-6. Record quantities physically received.
-7. Document parts used and remaining work on the repair ticket.
+5. Track shipments and backorders, and update the work order’s parts status as permitted.
+6. Record quantities physically received, including partial deliveries.
+7. Document parts used and any remaining work on the repair ticket.
 ### Purchase Orders and Receiving
 Orders can be entered manually or brought through configured source-review/import workflows.
 Before receiving stock, authorized staff review acceptance, descriptions, quantities, inventory mapping, and package or unit conversion.
@@ -487,4 +508,4 @@ Processing-time messages describe server work for the measured request. They do 
 ## About This Repository
 `cmpri-engineering-overview` is the public documentation repository for CMPRI Engineering.
 It explains the application, operating workflows, and supported ChatGPT integration while the development repository and operational information remain private.
-This repository is an overview, not a distributable application or self-hosting package. It does not include staff credentials, guest records, report attachments, private integration settings, or production deployment instructions.
+This repository is an overview, not a distributable application or self-hosting package. It does not include staff credentials, guest records, report attachments, private integration settings, or production deployment instructions
