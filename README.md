@@ -1,3 +1,4 @@
+# CMPRI Engineering Overview
 *Updated November 10, 2026.*
 CMPRI Engineering connects hotel maintenance reporting, technician work, preventive maintenance, room operations, pool monitoring, purchasing, inventory, and staff communication in a desktop and mobile workspace.
 An optional ChatGPT connection provides conversational access to supported records and actions.
