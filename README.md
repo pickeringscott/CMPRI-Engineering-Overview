@@ -121,7 +121,7 @@ This is a typical path. Permissions and the ticket's state determine available a
 | 🟢 **Daily Room Ops** | Guest, departure, and arrival reports; room access planning; room-status summaries; and report imports. |
 | 🟢 **Room Ranker** | A/B/C room rankings based on active work-order priorities and counts, grouped by floor. |
 | 🟢 **Preventive Maintenance** | Daily, weekly, monthly, and quarterly work; inspection forms; approvals; history; and exports. |
-| 🟢 **Pool Log and Pool** | AM/PM samples, daily checks, retests, chemical usage with inventory deductions in Remarks, closure reasons, holds, and shared operating status. |
+| 🟢 **Pool Log and Pool** | AM/PM samples, daily checks, retests, chemical usage with inventory deductions in notes, closure reasons, holds, and shared operating status. |
 | 🟣 **Manage Locations and Assets** | Rooms, property areas, equipment details, linked tickets, PM context, manuals, and documentation verification. |
 | 🟣 **Enseo Assignments** | Physical TV and set-top-box locations, pairing, endpoints, device moves, and assignment history. |
 | 🟠 **Inventory and Labor & Parts** | Per-part status and summary pills, issue-based supply suggestions, on-hand/reserved/available counts, confirmed work-order and pool chemical usage, stock deductions, linked Order Ideas, vendors, and proposals. |
@@ -292,22 +292,26 @@ The shared **Pool** status considers operating hours, required testing, recorded
 
 A passing sample does not clear an independent hold. Saving a test result and authorizing reopening remain distinct actions.
 
+Authorized staff can select **Close pool** and supply a reason. **Open pool** requests confirmation and clears eligible manual holds only when current tests pass and operating hours permit. Unsafe or missing readings and other required or unclassified holds cannot be overridden. CMPRI records automatic reasons for unsafe readings.
+
+**Daily pool activity** shows dated, timestamped saved reading and note changes together with open and close actions. Use the single **Save Pool Log** control beside the date to save the current entry.
+
 ### Record chemical use with the pool log
 
-At the very bottom of **Pool Log**, beneath **Remarks / actions taken**, open the compact **Chemical usage** expanding section. It matches the existing inventory-entry layout and keeps the pool modal's native colors.
+In **Pool Log**, open the compact **Chemical usage** expanding section. It matches the existing inventory-entry layout and keeps the pool modal's native colors.
 
 The chemical selector includes **only active items classified as Chemical and assigned to the managed Pool Pump Room location**. Items in Pool Area, Pool HVAC Room, or any other location are excluded, as are nonchemical products stored in Pool Pump Room. The same restriction is checked again when the log saves. Existing items with no confirmed type or storage assignment remain excluded until staff verify and assign them in Inventory.
 
 1. Choose the chemical from **Pool Pump Room**. The selector shows the current available quantity for eligible chemicals only.
 2. Enter the **Quantity used** and **Unit** actually used.
-3. Select **Add chemical use**. CMPRI automatically adds the chemical and entered quantity/unit to **Remarks** and stages the usage with this pool log. Multiple chemicals can be added. **Remove** discards an entry that has not been saved.
-4. Select **Save Pool Log** or **Add to today's pool log**. The readings, Remarks, chemical usage, inventory reduction, and inventory movement save together.
+3. Select **Add chemical use**. CMPRI automatically adds the chemical and entered quantity/unit to **Notes / actions taken** and stages the usage with this pool log. Multiple chemicals can be added. **Remove** discards an entry that has not been saved.
+4. Select **Save Pool Log**. The readings, notes, chemical usage, inventory reduction, and inventory movement save together.
 
 Stock changes when the pool log is saved. A rejected database save leaves stock unchanged, and retrying an unconfirmed save uses the same usage identities so inventory is deducted only once. Current available counts refresh after a confirmed save.
 
 Chemical usage follows the existing inventory rules: reserved stock remains protected, available quantities cannot be overdrawn, supported units use the existing conversions, and **Each** items require whole counts. Staff record what they actually used; CMPRI does not choose a chemical or dose from the readings.
 
-The saved log and its audit history retain the chemical, entered quantity/unit, stock quantity/unit, before-and-after counts, operator, and date/time. The matching inventory movement links the reduction to the pool log. Usage stays visible in the log's existing **Remarks**, including when later observations or chemicals are added.
+The saved log and its audit history retain the chemical, entered quantity/unit, stock quantity/unit, before-and-after counts, operator, and date/time. The matching inventory movement links the reduction to the pool log. Usage stays visible in the log's existing **Notes / actions taken**, including when later observations or chemicals are added.
 
 ## Locations, Assets, and Enseo Assignments
 
