@@ -1,5 +1,6 @@
 # CMPRI Engineering Overview
 *Updated November 10, 2026.*
+Additional release information was added November 14, 2026; the original overview and workflow format are retained below.
 CMPRI Engineering connects hotel maintenance reporting, technician work, preventive maintenance, room operations, pool monitoring, purchasing, inventory, and staff communication in a desktop and mobile workspace.
 An optional ChatGPT connection provides conversational access to supported records and actions.
 This guide focuses on the maintenance cycle: creating and managing work orders, using equipment-specific troubleshooting, and performing preventive maintenance (PM). It also describes the supporting tools used to coordinate that work.
@@ -17,6 +18,12 @@ The current release improves work-order editing and multitasking, alongside room
 | **Manage Users** | Active/Deactivated status is followed by the last sign-in or verification state. A small green dot indicates a user currently connected to the app. |
 | **Work-order collaboration** | New note and status events notify eligible Engineering leadership, the assigned technician, and the original submitter, with duplicate recipients combined. |
 | **Workspace and exports** | Responsive work-order filters, guest indicators, membership-tier help, coordinated modal styling, and PM Excel exports using the original workbook layout. |
+| **Personal Notes** | A separate desktop/mobile notebook combines original handwriting and typed text, automatic saving, independent saved notes, title/body search, clickable checklists, bullets, and selected text colors and sizes. |
+| **Equipment and manuals** | A compact Assets browser brings together equipment identity, photos, location and move history, documentation, and related work orders. An asset can retain multiple explicitly selected manuals with separate verification states. |
+| **Troubleshooting sources** | Issue-focused checklists accompany matching original manual pages, charts, error-code references, and reviewed source text. Continuous source pages and visual zoom make longer manuals easier to inspect. |
+| **Uploads** | Supported work-order media, Staff Notes attachments, equipment PDFs, and import files support files up to 100 MB through private direct uploads, subject to each workflow's file-type validation. |
+| **Room Ranker** | Clearer ticket previews, additional-issue ordering, escalation markers and help explain urgent escalations. Restoring a ticket's original priority clears its active escalation indicator. |
+| **PM and seasonal work** | Recorded inspection issues can be reviewed with their existing ticket links before authorized confirmation. Winter Preparedness returns as its own checklist. ChatGPT can read the current PM modal's saved tasks and review state. |
 See the workflow sections below for requirements, permissions, and limitations.
 ## Contents
 - [Recent updates](#recent-updates)
@@ -177,6 +184,8 @@ Room Ranker groups rooms by floor and derives the displayed rank from the highes
 | **C** | High- or urgent-priority active work. |
 Staff can filter by rank, expand a floor, open the leading issue's work order, and use **+N more** to inspect additional issues. Completed, Closed, and Will Not Do tickets are excluded from the active ranking.
 This is a ticket-based operating view, not a separate inspection score. Repair findings and ticket status remain in the work-order record.
+Issue counts also affect the rank: three Low issues raise a room to B, while four Low issues or three Medium issues raise it to C. Automatically escalated tickets use their original priority for these thresholds, so escalation does not feed back into the room score.
+Additional-issue previews use the current priority ordering. Escalation markers identify tickets raised to Urgent by Room Ranker, and eligible Engineering, technician, and management recipients receive the associated alert. Restoring the original priority clears the active escalation marker and alert state.
 ## 3. Submit a Maintenance Request
 Report the problem as observed; a technical diagnosis is not required. For example: “Room 316 is not cooling.”
 1. Open **Create Work Order** or the available work-order launcher.
@@ -185,6 +194,7 @@ Report the problem as observed; a technical diagnosis is not required. For examp
 4. Select **Submit Request** or **Create Work Order**, as available to your role.
 The simplified form can suggest a category, priority, and equipment based on the issue and location. Staff with technical editing permission can review or adjust the available fields. Similar active work may trigger a duplicate warning; multiple distinct problems may prompt suggestions for separate work orders. Review those suggestions before proceeding.
 Eligible users can save an unfinished report as a **Draft**. A draft is not a submitted active ticket. Requests from submission-only roles enter **Pending Verification**; authorized Engineering submissions can start as **Open**. If an attachment upload needs recovery, a ticket that has already been created is retained.
+Supported photos and videos can be up to 100 MB each. Private direct upload avoids sending large files through the ordinary work-order request body; access and file-type checks still apply.
 ## 4. Review, Prioritize, and Assign Work
 Authorized Engineering staff use the work lists and approval tools to review incoming requests. For each request:
 1. Confirm the location and clarify the reported issue.
@@ -219,6 +229,8 @@ The work order brings the reported issue, location, equipment, notes, attachment
 ### Equipment-matched guidance
 Selecting equipment lets CMPRI look for verified documentation matching its manufacturer and model family or model number. Where suitable material is available, **Suggested Troubleshooting** can show issue-relevant steps, diagnostic and error-code references, manufacturer guidance, PDF excerpts, and links to original manuals and referenced pages. Individual steps can be copied. Recorded work notes help filter steps already completed.
 If guidance is missing, ambiguous, or does not match the issue, the interface says so. Confirm the equipment identity and consult the available documentation or arrange further diagnosis; the suggestions do not establish a diagnosis on their own.
+Matching source pages appear continuously in their selected manual's order, retaining the document identity, original page references, and links to the original PDF. Charts remain available as source images alongside the checklist; flattened chart text is collapsed. Visual zoom supports close inspection without changing the source document.
+Reviewed manual text and verified manufacturer/model coverage guide source selection. Scanned material can use OCR and review where supported; unreadable, incomplete, ambiguous, or reference-only material remains identified rather than being presented as a verified repair procedure. Multiple manuals on an asset retain their individual identities and verification states.
 ### What to record
 Write notes that let the next person understand the repair without repeating the investigation:
 - **Checked:** equipment, symptoms, and tests performed.
@@ -258,6 +270,7 @@ The ticket carries the form reference, inspection period, marked deficiencies, a
 ### Review history and export
 Authorized reviewers use the available approval or rejection actions. Review saved responses, inspection records, and room completion information in **Maintenance History**.
 Excel and CSV exports provide reporting copies. **Export Excel** fills supported saved information into the original PM tracking workbook layout while preserving existing formatting, formulas, and untouched content. Editing the downloaded workbook does not update the saved CMPRI record.
+Within Preventive Maintenance, **Maintenance History → Review issues from previous inspections** brings together recorded follow-ups and existing work-order links, including closed tickets. Authorized staff review the source inspection, location, and proposed description before final confirmation. Confirmation checks the source and creates or reuses its linked ticket atomically; it does not change the original inspection answers or approve the PM form.
 ## 8. Resolve Parts and Purchasing Needs
 Inventory and purchasing tools organize supplies, replacement equipment, vendor proposals, and shipments needed for repairs.
 Authorized staff can maintain inventory items, vendors, contacts, equipment compatibility, reorder information, order ideas, and repair-or-replace proposals.
@@ -320,6 +333,8 @@ Required fields are checked before saving, and an unsuccessful save displays its
 Equipment records identify the asset, assigned location, and manufacturer/model details.
 Documentation can be associated with equipment and verified for troubleshooting use.
 Accurate identity and location records help technicians select the correct equipment and retrieve relevant guidance.
+The compact Assets browser supports search and location/type/status filters, equipment photos, move history, documentation, and associated work-order history. An asset's name remains separate from its assigned location.
+Staff can attach multiple manuals to the same physical asset and review each association independently. Selecting a local file makes it available to both attachment and the optional local reader; reading a file alone does not attach it or verify its applicability. Supported equipment PDFs can be up to 100 MB, with identity, content, and workflow limits still enforced.
 ### Enseo Assignments
 Authorized staff can record television and set-top-box assignments, destinations, room sub-locations, and supported pairing or endpoint details.
 Recorded moves preserve assignment history.
@@ -327,6 +342,12 @@ Recorded moves preserve assignment history.
 Available guest-room, television, and door-lock reference material supports permitted staff handling common operational issues.
 These guides complement equipment-specific troubleshooting inside technician work orders.
 ## 11. Communicate and Hand Off Work
+**Notes** opens a personal notebook in its own desktop or mobile modal, separate from shared Staff Notes and work-order history. Original handwritten strokes remain handwriting and are visible when the saved note is opened on desktop. Typed text and ink share the same page; switching to typing keeps existing ink visible. Finger gestures can scroll the page while the pen tool is selected.
+Each note is saved separately. The title picker reopens saved notes and searches titles and typed body text after a 500 ms pause. Untitled text-only notes use the first meaningful line as their automatic title; handwritten or mixed notes use **Untitled** until a title is supplied. An explicitly entered title is retained.
+Changes are protected on the current device immediately and automatically sent after a short typing pause, with a five-second cap during continued committed edits. When the status shows **Synced**, another signed-in device can retrieve the saved note without a Save action. Live updates support device handoff; conflicting edits retain a local copy for reconciliation. Offline edits require reconnection and synchronization before they are available on another device.
+The icon-only bottom dock opens compact pen and text controls using CMPRI's native palette. Select typed text to change its color or size from 8 through 24 in steps of two. Checkboxes toggle directly, and checkbox and bullet markers scale with their item text. Lists continue with Return, remove an empty marker with one Backspace, and indent beneath a preceding text header. Trash opens an in-modal confirmation and completes deletion only after acknowledgement.
+Personal Notes support the existing people, role, captured Front Desk name, location, and permitted work-order reference pickers, plus website URLs. These references do not notify recipients or share the private note. Referencing a personal note by its title from a work order remains a later integration step.
+Native keyboard handwriting-to-text remains an operating-system keyboard feature. Browser and installed web-app access do not expose S Pen holder insertion/removal events; automatic holder detection requires native-device integration.
 ### Staff Notes
 Staff Notes supports shift information, coordination, and discussion.
 Staff can post notes, reply, attach supported media, and select supported mentions for people, roles, locations, or work orders.
@@ -348,6 +369,7 @@ Delivery remains subject to current access, device enrollment, notification sche
 5. Post a Staff Note linking work the next shift needs to continue.
 Keep repair findings and status in the work-order record. Use Staff Notes to coordinate the handoff.
 ## 12. Supporting Reports and Account Tools
+**Winter Preparedness** is available as a separate seasonal checklist with saved progress and the existing role and revision checks. It retains its supplied tasks and does not replace equipment troubleshooting or ordinary PM schedules.
 | Tool | Operational use |
 | --- | --- |
 | **GSS Reports** | Review available guest-satisfaction reports, rankings, and prior periods. |
@@ -379,6 +401,7 @@ The connection can be read-only or read-and-write, depending on the authorizatio
 This OAuth connection does not require staff to share CMPRI credentials or supply an OpenAI API key.
 Custom-connection availability depends on the ChatGPT account and organization settings.
 ### What ChatGPT Can Read
+For the current **Preventive Maintenance** modal, a permitted request can read the selected week's saved entries, task states, review queue, locations, templates, and current permissions. Specify the Monday beginning the week; an optional linked work order selects its PM context. This native PM view is separate from the older corporate spreadsheet reference and does not infer inspection completion from an empty workbook placeholder.
 The connector exposes supported views available to the connected account.
 Depending on permissions and configuration:
 | Area | Supported uses |
@@ -486,6 +509,8 @@ Changed artwork files receive updated content versions.
 A scheduled PM inspection can enter the same cycle through a linked deficiency work order.
 An authorized ChatGPT connection can assist at supported points—for example, creating the initial request, retrieving ticket information, summarizing findings, or submitting a permitted update when explicitly requested.
 ## Release and Validation
+The November 10–14 additions cover personal Notes, private direct uploads up to 100 MB, equipment photos/moves/history and multiple manuals, reviewed source-backed troubleshooting and visual zoom, Room Ranker previews and escalation feedback, recorded PM issue review, Winter Preparedness, and native PM reads through ChatGPT. These additions describe released behavior; account permissions and the existing workflow-specific limits continue to apply.
+The November 14 Notes release passed CI verification and transactional production database checks for creation, retries, unchanged saves, updates, stale-edit conflicts, deletion, owner isolation, and restricted write permissions. Production deployment availability was also checked. Those checks are separate from physical-device Gboard/S Pen acceptance and do not by themselves establish every signed-in browser or integration flow.
 ### November 8, 2026
 The current workflow documentation includes:
 - Event-driven Drive discovery of the three Daily Room Ops CSV report types.
